@@ -1,5 +1,6 @@
 from .state_machine import InterviewStateMachine
 from .context_manager import InterviewContext
+from backend.llm import generate_response
 
 
 class Interviewer:
@@ -12,4 +13,24 @@ class Interviewer:
         self.state_machine.start_interview()
 
     def generate_question(self):
-        return self.context.questions
+        prompt = self.context.build_interviewer_prompt()
+        question = generate_response(prompt)
+
+        self.context.add_question(question)
+        self.state_machine.record_question()
+
+        return question
+
+    def process_answer(self, answer):
+        self.context.add_answer(answer)
+
+        question = self.context.questions[-1]
+
+        from .evaluator import AnswerEvaluator
+
+        evaluator = AnswerEvaluator()
+        evaluation = evaluator.evaluate(question, answer)
+
+        self.context.add_evaluation(evaluation)
+
+        return evaluation
