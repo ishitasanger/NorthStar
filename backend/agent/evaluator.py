@@ -1,5 +1,5 @@
 import json
-from backend.llm import generate_response
+from llm import generate_response
 
 class AnswerEvaluator:
     def __init__(self, llm=None):

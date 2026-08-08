@@ -1,6 +1,7 @@
 from .state_machine import InterviewStateMachine
 from .context_manager import InterviewContext
-from backend.llm import generate_response
+from .feedback_generator import FeedbackGenerator
+from llm import generate_response
 
 
 class Interviewer:
@@ -33,4 +34,17 @@ class Interviewer:
 
         self.context.add_evaluation(evaluation)
 
-        return evaluation
+        should_continue = self.state_machine.should_continue()
+
+        return {
+            "evaluation": evaluation,
+            "should_continue": should_continue
+        }
+
+    def generate_feedback(self):
+   
+        feedback_generator = FeedbackGenerator()
+
+        return feedback_generator.generate_feedback(
+            self.context
+        )

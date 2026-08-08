@@ -17,3 +17,12 @@ def load_curriculum():
         data = json.load(file)
 
     return data
+
+def get_candidate_data(candidate_id):
+    candidates = load_candidates()
+
+    for candidate in candidates:
+        if candidate["member"]["id"] == candidate_id:
+            return candidate
+
+    return None

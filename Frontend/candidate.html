@@ -1,808 +1,300 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<meta charset="UTF-8">
 
-    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<title>Select Candidate — InterviewAI</title>
 
-    <title>Select Candidate — InterviewAI</title>
+<link rel="stylesheet"
+      href="CSS/style.css">
 
-    <link rel="stylesheet"
-          href="CSS/style.css">
-
-    <link rel="stylesheet"
-          href="CSS/candidate.css">
-
-</head>
+<link rel="stylesheet"
+      href="CSS/candidate.css">
 
 
-<body>
+<!-- BACKGROUND -->
+
+<div class="background">
+
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+    <div class="glow glow-three"></div>
+
+    <div class="particles">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    <div class="grid-overlay"></div>
+
+</div>
 
 
-    <!-- BACKGROUND -->
+<!-- NAVBAR -->
 
-    <div class="background">
+<header class="navbar">
 
-        <div class="glow glow-one"></div>
-        <div class="glow glow-two"></div>
-        <div class="glow glow-three"></div>
+    <a href="index.html" class="brand">
 
-        <div class="particles">
+        <div class="brand-logo">
+            <span>✦</span>
+        </div>
 
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <div>
+
+            <h2>
+                Interview<span>AI</span>
+            </h2>
+
+            <p>
+                AI Interview Intelligence
+            </p>
 
         </div>
 
-        <div class="grid-overlay"></div>
+    </a>
+
+
+    <div class="nav-right">
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            AI Powered
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="candidate-page">
+
+
+    <!-- PAGE HEADING -->
+
+    <section class="candidate-header">
+
+        <div class="eyebrow">
+
+            <span class="eyebrow-icon">
+                ✦
+            </span>
+
+            PERSONALIZED INTERVIEW
+
+        </div>
+
+
+        <h1>
+
+            Select your
+            <span>candidate.</span>
+
+        </h1>
+
+
+        <p>
+
+            Choose a candidate profile to begin a personalized
+            technical interview based on their learning journey,
+            completed topics, and previous performance.
+
+        </p>
+
+
+        <div class="candidate-info">
+
+            <div class="info-item">
+
+                <span class="info-icon">
+                    ◉
+                </span>
+
+                <div>
+
+                    <strong>
+                        Candidate Profile
+                    </strong>
+
+                    <small>
+                        Personalized questions
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span class="info-icon">
+                    ◇
+                </span>
+
+                <div>
+
+                    <strong>
+                        Adaptive Interview
+                    </strong>
+
+                    <small>
+                        Difficulty changes dynamically
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span class="info-icon">
+                    ✓
+                </span>
+
+                <div>
+
+                    <strong>
+                        Deep Feedback
+                    </strong>
+
+                    <small>
+                        Performance report at the end
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CANDIDATES -->
+
+    <section class="candidates-section">
+
+        <div class="section-top">
+
+            <div>
+
+                <span class="section-label">
+                    AVAILABLE CANDIDATES
+                </span>
+
+                <h2>
+                    Choose a candidate
+                </h2>
+
+            </div>
+
+
+            <div class="candidate-count">
+
+                <span id="candidateCount">
+                    00
+                </span>
+
+                Profiles
+
+            </div>
+
+        </div>
+
+
+        <!-- CANDIDATE CARDS ARE GENERATED BY candidate.js -->
+
+        <div class="candidate-grid" id="candidateGrid">
+
+        </div>
+
+
+    </section>
+
+
+    <!-- BOTTOM NOTE -->
+
+    <section class="candidate-note">
+
+        <div class="note-icon">
+            ✦
+        </div>
+
+        <div>
+
+            <strong>
+                How personalization works
+            </strong>
+
+            <p>
+
+                The interviewer uses the selected candidate's
+                profile and curriculum journey to decide what
+                concepts to ask and how deeply to probe them.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="brand footer-brand">
+
+        <div class="brand-logo">
+            <span>✦</span>
+        </div>
+
+        <div>
+
+            <h2>
+                Interview<span>AI</span>
+            </h2>
+
+            <p>
+                AI Interview Intelligence
+            </p>
+
+        </div>
 
     </div>
 
 
+    <p>
+        Personalized technical interviews.
+    </p>
 
-    <!-- NAVBAR -->
+</footer>
 
-    <header class="navbar">
 
-        <a href="index.html" class="brand">
-
-            <div class="brand-logo">
-                <span>✦</span>
-            </div>
-
-            <div>
-
-                <h2>
-                    Interview<span>AI</span>
-                </h2>
-
-                <p>
-                    AI Interview Intelligence
-                </p>
-
-            </div>
-
-        </a>
-
-
-        <div class="nav-right">
-
-            <div class="status">
-
-                <span class="status-dot"></span>
-
-                AI Powered
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-
-    <!-- MAIN -->
-
-    <main class="candidate-page">
-
-
-        <!-- PAGE HEADING -->
-
-        <section class="candidate-header">
-
-            <div class="eyebrow">
-
-                <span class="eyebrow-icon">
-                    ✦
-                </span>
-
-                PERSONALIZED INTERVIEW
-
-            </div>
-
-
-            <h1>
-
-                Select your
-                <span>candidate.</span>
-
-            </h1>
-
-
-            <p>
-
-                Choose a candidate profile to begin a personalized
-                technical interview based on their learning journey,
-                completed topics, and previous performance.
-
-            </p>
-
-
-            <div class="candidate-info">
-
-                <div class="info-item">
-
-                    <span class="info-icon">
-                        ◉
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Candidate Profile
-                        </strong>
-
-                        <small>
-                            Personalized questions
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span class="info-icon">
-                        ◇
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Adaptive Interview
-                        </strong>
-
-                        <small>
-                            Difficulty changes dynamically
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-                <div class="info-item">
-
-                    <span class="info-icon">
-                        ✓
-                    </span>
-
-                    <div>
-
-                        <strong>
-                            Deep Feedback
-                        </strong>
-
-                        <small>
-                            Performance report at the end
-                        </small>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- CANDIDATES -->
-
-        <section class="candidates-section">
-
-
-            <div class="section-top">
-
-                <div>
-
-                    <span class="section-label">
-                        AVAILABLE CANDIDATES
-                    </span>
-
-                    <h2>
-                        Choose a candidate
-                    </h2>
-
-                </div>
-
-
-                <div class="candidate-count">
-
-                    <span>
-                        06
-                    </span>
-
-                    Profiles
-
-                </div>
-
-            </div>
-
-
-
-            <div class="candidate-grid">
-
-
-                <!-- CANDIDATE 1 -->
-
-                 <a href="pages/interview.html"
-                   class="candidate-card">
-
-                    <div class="candidate-visual">
-
-                        <div class="profile-glow"></div>
-
-                        <div class="human-avatar">
-
-                            <div class="avatar-head"></div>
-
-                            <div class="avatar-body"></div>
-
-                        </div>
-
-
-                        <div class="availability">
-
-                            <span></span>
-
-                            Ready
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="candidate-content">
-
-                        <div>
-
-                            <h3>
-                                Emily Carter
-                            </h3>
-
-                            <p>
-                                AI Engineering Candidate
-                            </p>
-
-                        </div>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-tags">
-
-                        <span>
-                            RAG
-                        </span>
-
-                        <span>
-                            Vector DB
-                        </span>
-
-                        <span>
-                            Prompting
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-footer">
-
-                        <span>
-                            5 topics completed
-                        </span>
-
-                        <span>
-                            Start →
-                        </span>
-
-                    </div>
-
-                </a>
-
-
-
-                <!-- CANDIDATE 2 -->
-
-                <a href="pages/interview.html"
-                   class="candidate-card">
-
-                    <div class="candidate-visual">
-
-                        <div class="profile-glow blue"></div>
-
-                        <div class="human-avatar avatar-blue">
-
-                            <div class="avatar-head"></div>
-
-                            <div class="avatar-body"></div>
-
-                        </div>
-
-
-                        <div class="availability">
-
-                            <span></span>
-
-                            Ready
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="candidate-content">
-
-                        <div>
-
-                            <h3>
-                                Alex Morgan
-                            </h3>
-
-                            <p>
-                                AI Engineering Candidate
-                            </p>
-
-                        </div>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-tags">
-
-                        <span>
-                            RAG
-                        </span>
-
-                        <span>
-                            MCP
-                        </span>
-
-                        <span>
-                            Deployment
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-footer">
-
-                        <span>
-                            6 topics completed
-                        </span>
-
-                        <span>
-                            Start →
-                        </span>
-
-                    </div>
-
-                </a>
-
-
-
-                <!-- CANDIDATE 3 -->
-
-                 <a href="pages/interview.html"
-                   class="candidate-card">
-
-                    <div class="candidate-visual">
-
-                        <div class="profile-glow pink"></div>
-
-                        <div class="human-avatar avatar-pink">
-
-                            <div class="avatar-head"></div>
-
-                            <div class="avatar-body"></div>
-
-                        </div>
-
-
-                        <div class="availability">
-
-                            <span></span>
-
-                            Ready
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="candidate-content">
-
-                        <div>
-
-                            <h3>
-                                Sophia Williams
-                            </h3>
-
-                            <p>
-                                AI Engineering Candidate
-                            </p>
-
-                        </div>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-tags">
-
-                        <span>
-                            Prompting
-                        </span>
-
-                        <span>
-                            Agentic AI
-                        </span>
-
-                        <span>
-                            MCP
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-footer">
-
-                        <span>
-                            4 topics completed
-                        </span>
-
-                        <span>
-                            Start →
-                        </span>
-
-                    </div>
-
-                </a>
-
-
-
-                <!-- CANDIDATE 4 -->
-
-                 <a href="pages/interview.html"
-                   class="candidate-card">
-
-                    <div class="candidate-visual">
-
-                        <div class="profile-glow cyan"></div>
-
-                        <div class="human-avatar avatar-cyan">
-
-                            <div class="avatar-head"></div>
-
-                            <div class="avatar-body"></div>
-
-                        </div>
-
-
-                        <div class="availability">
-
-                            <span></span>
-
-                            Ready
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="candidate-content">
-
-                        <div>
-
-                            <h3>
-                                Daniel Kim
-                            </h3>
-
-                            <p>
-                                AI Engineering Candidate
-                            </p>
-
-                        </div>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-tags">
-
-                        <span>
-                            Vector DB
-                        </span>
-
-                        <span>
-                            RAG
-                        </span>
-
-                        <span>
-                            AI Systems
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-footer">
-
-                        <span>
-                            5 topics completed
-                        </span>
-
-                        <span>
-                            Start →
-                        </span>
-
-                    </div>
-
-                </a>
-
-
-
-                <!-- CANDIDATE 5 -->
-
-                 <a href="pages/interview.html"
-                   class="candidate-card">
-
-                    <div class="candidate-visual">
-
-                        <div class="profile-glow orange"></div>
-
-                        <div class="human-avatar avatar-orange">
-
-                            <div class="avatar-head"></div>
-
-                            <div class="avatar-body"></div>
-
-                        </div>
-
-
-                        <div class="availability">
-
-                            <span></span>
-
-                            Ready
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="candidate-content">
-
-                        <div>
-
-                            <h3>
-                                Olivia Brown
-                            </h3>
-
-                            <p>
-                                AI Engineering Candidate
-                            </p>
-
-                        </div>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-tags">
-
-                        <span>
-                            Agentic AI
-                        </span>
-
-                        <span>
-                            MCP
-                        </span>
-
-                        <span>
-                            RAG
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-footer">
-
-                        <span>
-                            5 topics completed
-                        </span>
-
-                        <span>
-                            Start →
-                        </span>
-
-                    </div>
-
-                </a>
-
-
-
-                <!-- CANDIDATE 6 -->
-
-                <a href="pages/interview.html"
-                   class="candidate-card">
-
-                    <div class="candidate-visual">
-
-                        <div class="profile-glow green"></div>
-
-                        <div class="human-avatar avatar-green">
-
-                            <div class="avatar-head"></div>
-
-                            <div class="avatar-body"></div>
-
-                        </div>
-
-
-                        <div class="availability">
-
-                            <span></span>
-
-                            Ready
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="candidate-content">
-
-                        <div>
-
-                            <h3>
-                                Ethan Wilson
-                            </h3>
-
-                            <p>
-                                AI Engineering Candidate
-                            </p>
-
-                        </div>
-
-                        <span class="card-arrow">
-                            →
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-tags">
-
-                        <span>
-                            Deployment
-                        </span>
-
-                        <span>
-                            RAG
-                        </span>
-
-                        <span>
-                            Prompting
-                        </span>
-
-                    </div>
-
-
-                    <div class="candidate-footer">
-
-                        <span>
-                            6 topics completed
-                        </span>
-
-                        <span>
-                            Start →
-                        </span>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- BOTTOM NOTE -->
-
-        <section class="candidate-note">
-
-            <div class="note-icon">
-                ✦
-            </div>
-
-            <div>
-
-                <strong>
-                    How personalization works
-                </strong>
-
-                <p>
-
-                    The interviewer uses the selected candidate's
-                    profile and curriculum journey to decide what
-                    concepts to ask and how deeply to probe them.
-
-                </p>
-
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-
-    <footer>
-
-        <div class="brand footer-brand">
-
-            <div class="brand-logo">
-                <span>✦</span>
-            </div>
-
-            <div>
-
-                <h2>
-                    Interview<span>AI</span>
-                </h2>
-
-                <p>
-                    AI Interview Intelligence
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <p>
-            Personalized technical interviews.
-        </p>
-
-    </footer>
-
-
-</body>
-</html>
+<script src="JS/candidate.js"></script>
