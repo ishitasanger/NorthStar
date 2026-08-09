@@ -26,7 +26,7 @@ app.mount(
 # Frontend
 app.mount(
     "/",
-    StaticFiles(directory="../FRONTEND", html=True),
+    StaticFiles(directory="../Frontend", html=True),
     name="frontend"
 )
 
