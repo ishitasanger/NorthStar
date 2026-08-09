@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -10,7 +11,9 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>AI Interviewer | Live Interview</title>
+    <title>
+        AI Interviewer | Live Interview
+    </title>
 
     <link
         rel="stylesheet"
@@ -19,503 +22,569 @@
 
 </head>
 
+
 <body>
 
-<!-- ================= BACKGROUND ================= -->
 
-<div class="gradient-orb orb-one"></div>
-<div class="gradient-orb orb-two"></div>
-<div class="gradient-orb orb-three"></div>
+    <!-- ================= BACKGROUND ================= -->
 
-<div class="particles">
+    <div class="background">
 
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+        <div class="gradient-orb orb-one"></div>
 
-</div>
+        <div class="gradient-orb orb-two"></div>
+
+        <div class="gradient-orb orb-three"></div>
 
 
-<!-- ================= SIDEBAR ================= -->
+        <div class="particles">
 
-<aside class="sidebar">
-
-    <!-- BRAND -->
-
-    <div class="brand">
-
-        <div class="brand-icon">
-            ✦
-        </div>
-
-        <div>
-
-            <h2>
-                AI Interviewer
-            </h2>
-
-            <span>
-                Interview Intelligence
-            </span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
 
         </div>
 
     </div>
 
 
-    <!-- NAVIGATION -->
 
-    <nav class="sidebar-nav">
+    <!-- ================= APP ================= -->
 
-        <!-- DASHBOARD -->
+    <div class="app-shell">
 
-        <a
-            href="../index.html"
-            class="nav-item"
-        >
 
-            <div class="nav-icon">
-                ⌂
-            </div>
+        <!-- ================= SIDEBAR ================= -->
 
-            <div>
+        <aside class="sidebar">
 
-                <strong>
-                    Dashboard
-                </strong>
 
-                <small>
-                    Overview & insights
-                </small>
+            <!-- BRAND -->
 
-            </div>
+            <div class="brand">
 
-        </a>
+                <div class="brand-icon">
+                    ✦
+                </div>
 
+                <div>
 
-        <!-- INTERVIEW -->
+                    <h2>
+                        AI Interviewer
+                    </h2>
 
-        <a
-            href="interview.html"
-            class="nav-item active"
-        >
-
-            <div class="nav-icon">
-                ◉
-            </div>
-
-            <div>
-
-                <strong>
-                    Interview Mode
-                </strong>
-
-                <small>
-                    Live interview
-                </small>
-
-            </div>
-
-        </a>
-
-
-        <!-- REPORT -->
-
-        <a
-            href="report.html"
-            class="nav-item"
-        >
-
-            <div class="nav-icon">
-                ◈
-            </div>
-
-            <div>
-
-                <strong>
-                    Performance Report
-                </strong>
-
-                <small>
-                    View your results
-                </small>
-
-            </div>
-
-        </a>
-
-
-        <!-- SMART ANALYSIS -->
-
-        <a
-            href="smartanalysis.html"
-            class="nav-item"
-        >
-
-            <div class="nav-icon">
-                ✦
-            </div>
-
-            <div>
-
-                <strong>
-                    Smart Analysis
-                </strong>
-
-                <small>
-                    AI-powered insights
-                </small>
-
-            </div>
-
-        </a>
-
-
-        <!-- SELECT CANDIDATE -->
-
-        <a
-            href="../candidate.html"
-            class="nav-item"
-        >
-
-            <div class="nav-icon">
-                👤
-            </div>
-
-            <div>
-
-                <strong>
-                    Select Candidate
-                </strong>
-
-                <small>
-                    Choose a candidate
-                </small>
-
-            </div>
-
-        </a>
-
-    </nav>
-
-
-    <!-- SIDEBAR CARD -->
-
-    <div class="sidebar-card">
-
-        <div class="eyebrow">
-            FOCUS. THINK. PERFORM.
-        </div>
-
-        <h3>
-            You're doing great!
-        </h3>
-
-        <p>
-            Take your time and explain your reasoning clearly.
-        </p>
-
-        <div class="mini-progress">
-            <div></div>
-        </div>
-
-    </div>
-
-</aside>
-
-
-<!-- ================= MAIN ================= -->
-
-<main class="main-content">
-
-
-    <!-- ================= TOP BAR ================= -->
-
-    <header class="topbar">
-
-        <div>
-
-            <div class="page-label">
-
-                <span class="live-dot"></span>
-
-                LIVE INTERVIEW
-
-            </div>
-
-
-            <h1>
-                Technical Interview
-            </h1>
-
-
-            <div class="timer">
-
-                <span>
-                    ◷
-                </span>
-
-                <strong id="timer">
-                    00:00
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="top-actions">
-
-
-            <!-- QUESTION PROGRESS -->
-
-            <div class="question-progress">
-
-                <span>
-
-                    Question
-
-                    <strong id="questionNumber">
-                        1
-                    </strong>
-
-                    of
-
-                    <strong id="totalQuestions">
-                        10
-                    </strong>
-
-                </span>
-
-
-                <div class="progress-track">
-
-                    <div
-                        class="progress-fill"
-                        id="questionProgress"
-                        style="width: 0%"
-                    ></div>
+                    <span>
+                        Interview Intelligence
+                    </span>
 
                 </div>
 
             </div>
 
 
-            <!-- PAUSE -->
 
-            <button
-                class="pause-btn"
-                id="pauseBtn"
-            >
+            <!-- NAVIGATION -->
 
-                ❚❚ Pause Interview
+            <nav class="sidebar-nav">
 
-            </button>
 
+                <!-- DASHBOARD -->
 
-            <!-- END INTERVIEW -->
-
-            <button
-                class="end-interview-btn"
-                id="endInterviewBtn"
-            >
-
-                <span>
-                    ■
-                </span>
-
-                End Interview
-
-            </button>
-
-
-        </div>
-
-    </header>
-
-
-    <!-- ================= INTERVIEW CARD ================= -->
-
-    <section class="interview-card">
-
-
-        <!-- TOPIC -->
-
-        <div class="question-top">
-
-            <div
-                class="topic-pill"
-                id="topicPill"
-            >
-
-                ✦ Personalized Interview
-
-            </div>
-
-
-            <button
-                class="difficulty-pill"
-                id="difficultyPill"
-            >
-
-                Adaptive • Medium
-
-            </button>
-
-        </div>
-
-
-        <!-- AI LABEL -->
-
-        <div class="ai-label">
-
-            <span class="ai-sparkle">
-                ✦
-            </span>
-
-            AI INTERVIEWER
-
-            <span class="status-dot"></span>
-
-        </div>
-
-
-        <!-- QUESTION -->
-
-        <h2 id="questionText">
-
-            Preparing your first question...
-
-        </h2>
-
-
-        <p
-            class="question-description"
-            id="questionDescription"
-        >
-
-            The AI interviewer is analyzing the candidate profile.
-
-        </p>
-
-
-        <!-- CONTEXT -->
-
-        <div class="context-box">
-
-            <div class="context-icon">
-                🧠
-            </div>
-
-
-            <div>
-
-                <strong>
-                    Context-aware interview
-                </strong>
-
-                <p>
-                    Your next question will adapt based on the answer
-                    you provide.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- ================= ANSWER ================= -->
-
-        <div class="answer-section">
-
-            <div class="answer-header">
-
-                <label for="answerInput">
-                    Your answer
-                </label>
-
-
-                <span id="characterCount">
-                    0 characters
-                </span>
-
-            </div>
-
-
-            <textarea
-                id="answerInput"
-                placeholder="Type your answer here... Explain your reasoning, implementation details, and practical examples."
-            ></textarea>
-
-
-            <div class="answer-footer">
-
-                <span>
-                    Ctrl + Enter to submit
-                </span>
-
-
-                <button
-                    class="send-btn"
-                    id="sendAnswerBtn"
+                <a
+                    href="../index.html"
+                    class="nav-item"
                 >
 
-                    <span>
-                        ➤
-                    </span>
+                    <div class="nav-icon">
+                        ⌂
+                    </div>
 
-                    Send Answer
+                    <div>
 
-                </button>
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview & insights
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- INTERVIEW -->
+
+                <a
+                    href="interview.html"
+                    class="nav-item active"
+                >
+
+                    <div class="nav-icon">
+                        ◉
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Interview Mode
+                        </strong>
+
+                        <small>
+                            Live interview
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- REPORT -->
+
+                <a
+                    href="report.html"
+                    class="nav-item"
+                >
+
+                    <div class="nav-icon">
+                        ◈
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Performance Report
+                        </strong>
+
+                        <small>
+                            View your results
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- SMART ANALYSIS -->
+
+                <a
+                    href="smartanalysis.html"
+                    class="nav-item"
+                >
+
+                    <div class="nav-icon">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Smart Analysis
+                        </strong>
+
+                        <small>
+                            AI-powered insights
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- SELECT CANDIDATE -->
+
+                <a
+                    href="../candidate.html"
+                    class="nav-item"
+                >
+
+                    <div class="nav-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Select Candidate
+                        </strong>
+
+                        <small>
+                            Choose a candidate
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+            </nav>
+
+
+
+            <!-- SIDEBAR CARD -->
+
+            <div class="sidebar-card">
+
+                <div class="eyebrow">
+                    FOCUS. THINK. PERFORM.
+                </div>
+
+                <h3>
+                    You're doing great!
+                </h3>
+
+                <p>
+                    Take your time and explain your reasoning clearly.
+                </p>
+
+                <div class="mini-progress">
+
+                    <div></div>
+
+                </div>
 
             </div>
 
-        </div>
 
-    </section>
-
-
-    <!-- ================= INTERVIEW TIP ================= -->
-
-    <section class="tip-card">
-
-        <div class="tip-icon">
-            💡
-        </div>
+        </aside>
 
 
-        <div>
 
-            <strong>
-                Interview Tip
-            </strong>
+        <!-- ================= MAIN ================= -->
 
-
-            <p id="tipText">
-
-                Structure your answer with a clear explanation,
-                implementation details, and a real-world example.
-
-            </p>
-
-        </div>
-
-    </section>
+        <main class="main-content">
 
 
-</main>
+            <!-- ================= TOP BAR ================= -->
+
+            <header class="topbar">
 
 
-<script src="../JS/interview.js"></script>
+                <div>
+
+                    <div class="page-label">
+
+                        <span class="live-dot"></span>
+
+                        LIVE INTERVIEW
+
+                    </div>
+
+
+                    <h1>
+                        Technical Interview
+                    </h1>
+
+
+                    <div class="timer">
+
+                        <span>
+                            ◷
+                        </span>
+
+                        <strong id="timer">
+                            00:00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="top-actions">
+
+
+                    <!-- QUESTION PROGRESS -->
+
+                    <div class="question-progress">
+
+                        <span>
+
+                            Question
+
+                            <strong id="questionNumber">
+                                1
+                            </strong>
+
+                            of
+
+                            <strong id="totalQuestions">
+                                10
+                            </strong>
+
+                        </span>
+
+
+                        <div class="progress-track">
+
+                            <div
+                                class="progress-fill"
+                                id="questionProgress"
+                                style="width: 0%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- START -->
+
+                    <button
+                        class="start-interview-btn"
+                        id="startInterviewBtn"
+                    >
+
+                        <span>
+                            ▶
+                        </span>
+
+                        Start Interview
+
+                    </button>
+
+
+
+                    <!-- PAUSE -->
+
+                    <button
+                        class="pause-btn"
+                        id="pauseBtn"
+                        disabled
+                    >
+
+                        ❚❚ Pause Interview
+
+                    </button>
+
+
+
+                    <!-- END -->
+
+                    <button
+                        class="end-interview-btn"
+                        id="endInterviewBtn"
+                        disabled
+                    >
+
+                        <span>
+                            ■
+                        </span>
+
+                        End Interview
+
+                    </button>
+
+
+                </div>
+
+            </header>
+
+
+
+            <!-- ================= INTERVIEW CARD ================= -->
+
+            <section class="interview-card">
+
+
+                <!-- TOPIC -->
+
+                <div class="question-top">
+
+                    <div
+                        class="topic-pill"
+                        id="topicPill"
+                    >
+
+                        ✦ Personalized Interview
+
+                    </div>
+
+
+                    <button
+                        class="difficulty-pill"
+                        id="difficultyPill"
+                        type="button"
+                    >
+
+                        Adaptive • Medium
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- AI LABEL -->
+
+                <div class="ai-label">
+
+                    <span class="ai-sparkle">
+                        ✦
+                    </span>
+
+                    AI INTERVIEWER
+
+                    <span class="status-dot"></span>
+
+                </div>
+
+
+
+                <!-- QUESTION -->
+
+                <h2 id="questionText">
+
+                    Ready to begin your interview?
+
+                </h2>
+
+
+                <p
+                    class="question-description"
+                    id="questionDescription"
+                >
+
+                    Click "Start Interview" when you're ready.
+                    Your first question will be generated by the AI interviewer.
+
+                </p>
+
+
+
+                <!-- CONTEXT -->
+
+                <div class="context-box">
+
+                    <div class="context-icon">
+                        🧠
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Context-aware interview
+                        </strong>
+
+                        <p>
+                            Your next question will adapt based on the answer
+                            you provide.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================= ANSWER ================= -->
+
+                <div class="answer-section">
+
+                    <div class="answer-header">
+
+                        <label for="answerInput">
+                            Your answer
+                        </label>
+
+
+                        <span id="characterCount">
+                            0 characters
+                        </span>
+
+                    </div>
+
+
+                    <textarea
+                        id="answerInput"
+                        disabled
+                        placeholder="Click Start Interview first..."
+                    ></textarea>
+
+
+                    <div class="answer-footer">
+
+                        <span>
+                            Ctrl + Enter to submit
+                        </span>
+
+
+                        <button
+                            class="send-btn"
+                            id="sendAnswerBtn"
+                            disabled
+                        >
+
+                            <span>
+                                ➤
+                            </span>
+
+                            Send Answer
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ================= INTERVIEW TIP ================= -->
+
+            <section class="tip-card">
+
+                <div class="tip-icon">
+                    💡
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Interview Tip
+                    </strong>
+
+
+                    <p id="tipText">
+
+                        Structure your answer with a clear explanation,
+                        implementation details, and a real-world example.
+
+                    </p>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+
+    <script src="../JS/interview.js"></script>
 
 </body>
 

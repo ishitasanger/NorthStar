@@ -1,858 +1,850 @@
 console.log("INTERVIEW JS LOADED");
 
-document.addEventListener("DOMContentLoaded", async () => {
 
-    // =====================================================
-    // DOM ELEMENTS
-    // =====================================================
-
-    const questionText =
-        document.getElementById("questionText");
-
-    const questionDescription =
-        document.getElementById(
-            "questionDescription"
-        );
-
-    const answerInput =
-        document.getElementById("answerInput");
-
-    const sendAnswerBtn =
-        document.getElementById(
-            "sendAnswerBtn"
-        );
-
-    const characterCount =
-        document.getElementById(
-            "characterCount"
-        );
-
-    const questionNumber =
-        document.getElementById(
-            "questionNumber"
-        );
-
-    const totalQuestions =
-        document.getElementById(
-            "totalQuestions"
-        );
-
-    const questionProgress =
-        document.getElementById(
-            "questionProgress"
-        );
-
-    const timerElement =
-        document.getElementById("timer");
-
-    const pauseBtn =
-        document.getElementById("pauseBtn");
-
-    const endInterviewBtn =
-        document.getElementById(
-            "endInterviewBtn"
-        );
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
 
 
-    // =====================================================
-    // GET CANDIDATE ID
-    // =====================================================
+        // =====================================================
+        // DOM ELEMENTS
+        // =====================================================
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-    const urlCandidateId =
-        params.get("candidate");
-
-    const storedCandidateId =
-        sessionStorage.getItem(
-            "selectedCandidateId"
-        );
-
-    const candidateId =
-        urlCandidateId ||
-        storedCandidateId;
+        const questionText =
+            document.getElementById(
+                "questionText"
+            );
 
 
-    console.log(
-        "Candidate ID:",
-        candidateId
-    );
+        const questionDescription =
+            document.getElementById(
+                "questionDescription"
+            );
 
 
-    if (!candidateId) {
-
-        console.error(
-            "No candidate selected."
-        );
-
-        questionText.textContent =
-            "No candidate selected.";
-
-        questionDescription.textContent =
-            "Please select a candidate before starting an interview.";
-
-        return;
-    }
+        const answerInput =
+            document.getElementById(
+                "answerInput"
+            );
 
 
-    sessionStorage.setItem(
-        "selectedCandidateId",
-        candidateId
-    );
+        const sendAnswerBtn =
+            document.getElementById(
+                "sendAnswerBtn"
+            );
 
 
-    // =====================================================
-    // SESSION
-    // =====================================================
-
-    let sessionId =
-        sessionStorage.getItem(
-            "interviewSessionId"
-        );
-
-    const interviewSessionCandidateId =
-        sessionStorage.getItem(
-            "interviewSessionCandidateId"
-        );
+        const characterCount =
+            document.getElementById(
+                "characterCount"
+            );
 
 
-    const candidateChanged =
-        interviewSessionCandidateId &&
-        interviewSessionCandidateId !== candidateId;
+        const questionNumber =
+            document.getElementById(
+                "questionNumber"
+            );
 
 
-    if (
-        !sessionId ||
-        candidateChanged
-    ) {
+        const totalQuestions =
+            document.getElementById(
+                "totalQuestions"
+            );
 
-        console.log(
-            "Creating NEW interview session."
-        );
 
-        console.log(
-            "Previous session:",
-            sessionId
-        );
+        const questionProgress =
+            document.getElementById(
+                "questionProgress"
+            );
 
-        console.log(
-            "Previous session candidate:",
-            interviewSessionCandidateId
-        );
+
+        const timerElement =
+            document.getElementById(
+                "timer"
+            );
+
+
+        const startInterviewBtn =
+            document.getElementById(
+                "startInterviewBtn"
+            );
+
+
+        const pauseBtn =
+            document.getElementById(
+                "pauseBtn"
+            );
+
+
+        const endInterviewBtn =
+            document.getElementById(
+                "endInterviewBtn"
+            );
+
+        const difficultyPill =
+            document.getElementById(
+                "difficultyPill"
+            );
+
+        // =====================================================
+        // UPDATE ADAPTIVE DIFFICULTY PILL
+        // =====================================================
+
+        function updateDifficultyPill(
+            difficulty
+        ) {
+
+            if (!difficultyPill) {
+                return;
+            }
+
+
+            if (!difficulty) {
+                return;
+            }
+
+
+            difficultyPill.textContent =
+                `Adaptive • ${difficulty}`;
+
+
+            console.log(
+                "Interview difficulty updated:",
+                difficulty
+            );
+        }
+
+
+        // =====================================================
+        // GET CANDIDATE ID
+        // =====================================================
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const urlCandidateId =
+            params.get("candidate");
+
+
+        const storedCandidateId =
+            sessionStorage.getItem(
+                "selectedCandidateId"
+            );
+
+
+        const candidateId =
+            urlCandidateId ||
+            storedCandidateId;
+
 
         console.log(
-            "New candidate:",
+            "Candidate ID:",
             candidateId
         );
 
 
-        // =============================================
-        // CLEAR OLD INTERVIEW STATE
-        // =============================================
+        if (!candidateId) {
 
-        sessionStorage.removeItem(
-            "interviewSessionId"
-        );
-
-        sessionStorage.removeItem(
-            "interviewSessionCandidateId"
-        );
-
-        sessionStorage.removeItem(
-            "interviewFeedback"
-        );
-
-        sessionStorage.removeItem(
-            "interviewHistory"
-        );
-
-        sessionStorage.removeItem(
-            "interviewDuration"
-        );
-
-        sessionStorage.removeItem(
-            "interviewAvgResponseTime"
-        );
-
-        sessionStorage.removeItem(
-            "interviewResponseTimes"
-        );
-
-        sessionStorage.removeItem(
-            "interviewCandidate"
-        );
+            console.error(
+                "No candidate selected."
+            );
 
 
-        // =============================================
-        // CREATE NEW SESSION
-        // =============================================
+            questionText.textContent =
+                "No candidate selected.";
 
-        sessionId =
-            crypto.randomUUID();
 
+            questionDescription.textContent =
+                "Please select a candidate before starting an interview.";
+
+
+            startInterviewBtn.disabled =
+                true;
+
+
+            return;
+        }
+
+
+        // Keep selected candidate available
 
         sessionStorage.setItem(
-            "interviewSessionId",
-            sessionId
-        );
-
-        sessionStorage.setItem(
-            "interviewSessionCandidateId",
+            "selectedCandidateId",
             candidateId
         );
 
 
-    } else {
+        // =====================================================
+        // SESSION
+        // =====================================================
 
-        console.log(
-            "Continuing existing interview session."
-        );
-    }
-
-
-    console.log(
-        "Interview Session ID:",
-        sessionId
-    );
-
-    console.log(
-        "Interview Session Candidate:",
-        sessionStorage.getItem(
-            "interviewSessionCandidateId"
-        )
-    );
+        let sessionId =
+            sessionStorage.getItem(
+                "interviewSessionId"
+            );
 
 
-    // =====================================================
-    // INTERVIEW STATE
-    // =====================================================
-
-    let currentQuestion = 1;
-
-    const total = 10;
-
-    totalQuestions.textContent =
-        total;
+        const interviewSessionCandidateId =
+            sessionStorage.getItem(
+                "interviewSessionCandidateId"
+            );
 
 
-    // =====================================================
-    // RESPONSE TIME TRACKING
-    // =====================================================
+        const candidateChanged =
+            interviewSessionCandidateId &&
+            interviewSessionCandidateId !== candidateId;
 
-    let questionShownAt = null;
-
-    let responseTimes = [];
-
-    let responseTimerPausedAt = null;
-
-    let pausedResponseDuration = 0;
-
-
-    function startResponseTimer() {
-
-        questionShownAt =
-            Date.now();
-
-        responseTimerPausedAt = null;
-
-        pausedResponseDuration = 0;
-    }
-
-
-    function pauseResponseTimer() {
 
         if (
-            questionShownAt !== null &&
-            responseTimerPausedAt === null
+            !sessionId ||
+            candidateChanged
         ) {
+
+            console.log(
+                "Creating NEW interview session."
+            );
+
+
+            console.log(
+                "Previous session:",
+                sessionId
+            );
+
+
+            console.log(
+                "Previous session candidate:",
+                interviewSessionCandidateId
+            );
+
+
+            console.log(
+                "New candidate:",
+                candidateId
+            );
+
+
+            // =============================================
+            // CLEAR OLD INTERVIEW STATE
+            // =============================================
+
+            sessionStorage.removeItem(
+                "interviewSessionId"
+            );
+
+
+            sessionStorage.removeItem(
+                "interviewSessionCandidateId"
+            );
+
+
+            sessionStorage.removeItem(
+                "interviewFeedback"
+            );
+
+
+            sessionStorage.removeItem(
+                "interviewHistory"
+            );
+
+
+            sessionStorage.removeItem(
+                "interviewDuration"
+            );
+
+
+            sessionStorage.removeItem(
+                "interviewAvgResponseTime"
+            );
+
+
+            sessionStorage.removeItem(
+                "interviewResponseTimes"
+            );
+
+
+            sessionStorage.removeItem(
+                "interviewCandidate"
+            );
+
+
+            // =============================================
+            // CLEAR ANSWER COUNT FOR NEW INTERVIEW
+            // =============================================
+
+            sessionStorage.removeItem(
+                "interviewAnsweredQuestions"
+            );
+
+
+            // =============================================
+            // CREATE NEW SESSION
+            // =============================================
+
+            sessionId =
+                crypto.randomUUID();
+
+
+            sessionStorage.setItem(
+                "interviewSessionId",
+                sessionId
+            );
+
+
+            sessionStorage.setItem(
+                "interviewSessionCandidateId",
+                candidateId
+            );
+
+
+        } else {
+
+            console.log(
+                "Continuing existing interview session."
+            );
+        }
+
+
+        console.log(
+            "Interview Session ID:",
+            sessionId
+        );
+
+
+        console.log(
+            "Interview Session Candidate:",
+            sessionStorage.getItem(
+                "interviewSessionCandidateId"
+            )
+        );
+
+
+        // =====================================================
+        // INTERVIEW STATE
+        // =====================================================
+
+        let currentQuestion = 1;
+
+
+        const total = 10;
+
+
+        totalQuestions.textContent =
+            total;
+
+
+        // =====================================================
+        // INTERVIEW STATUS
+        // =====================================================
+
+        let interviewStarted = false;
+
+
+        // =====================================================
+        // ANSWER COUNT
+        // =====================================================
+
+        /*
+         * This tracks how many answers were actually
+         * submitted successfully.
+         *
+         * It is stored in sessionStorage so the count
+         * survives navigation during the same interview.
+         */
+
+        let answeredQuestions =
+            Number(
+                sessionStorage.getItem(
+                    "interviewAnsweredQuestions"
+                )
+            ) || 0;
+
+
+        console.log(
+            "Previously answered questions:",
+            answeredQuestions
+        );
+
+
+        // =====================================================
+        // RESPONSE TIME TRACKING
+        // =====================================================
+
+        let questionShownAt =
+            null;
+
+
+        let responseTimes = [];
+
+
+        let responseTimerPausedAt =
+            null;
+
+
+        let pausedResponseDuration =
+            0;
+
+
+        function startResponseTimer() {
+
+            questionShownAt =
+                Date.now();
+
 
             responseTimerPausedAt =
-                Date.now();
+                null;
+
+
+            pausedResponseDuration =
+                0;
         }
-    }
 
 
-    function resumeResponseTimer() {
+        function pauseResponseTimer() {
 
-        if (
-            questionShownAt !== null &&
-            responseTimerPausedAt !== null
-        ) {
+            if (
+                questionShownAt !== null &&
+                responseTimerPausedAt === null
+            ) {
 
-            pausedResponseDuration +=
+                responseTimerPausedAt =
+                    Date.now();
+            }
+        }
+
+
+        function resumeResponseTimer() {
+
+            if (
+                questionShownAt !== null &&
+                responseTimerPausedAt !== null
+            ) {
+
+                pausedResponseDuration +=
+                    Date.now() -
+                    responseTimerPausedAt;
+
+
+                responseTimerPausedAt =
+                    null;
+            }
+        }
+
+
+        function recordResponseTime() {
+
+            if (
+                questionShownAt === null
+            ) {
+
+                return;
+            }
+
+
+            if (
+                responseTimerPausedAt !== null
+            ) {
+
+                return;
+            }
+
+
+            const elapsedMilliseconds =
                 Date.now() -
-                responseTimerPausedAt;
-
-            responseTimerPausedAt = null;
-        }
-    }
+                questionShownAt -
+                pausedResponseDuration;
 
 
-    function recordResponseTime() {
-
-        if (
-            questionShownAt === null
-        ) {
-            return;
-        }
+            const responseTime =
+                Math.max(
+                    0,
+                    elapsedMilliseconds / 1000
+                );
 
 
-        if (
-            responseTimerPausedAt !== null
-        ) {
-            return;
-        }
-
-
-        const elapsedMilliseconds =
-            Date.now() -
-            questionShownAt -
-            pausedResponseDuration;
-
-
-        const responseTime =
-            Math.max(
-                0,
-                elapsedMilliseconds / 1000
+            responseTimes.push(
+                responseTime
             );
 
 
-        responseTimes.push(
-            responseTime
-        );
-
-
-        console.log(
-            "Response time:",
-            responseTime.toFixed(2),
-            "seconds"
-        );
-
-
-        questionShownAt = null;
-
-        responseTimerPausedAt = null;
-
-        pausedResponseDuration = 0;
-    }
-
-
-    function getAverageResponseTime() {
-
-        if (
-            responseTimes.length === 0
-        ) {
-
-            return 0;
-        }
-
-
-        const totalTime =
-            responseTimes.reduce(
-                (sum, time) =>
-                    sum + time,
-                0
+            console.log(
+                "Response time:",
+                responseTime.toFixed(2),
+                "seconds"
             );
 
 
-        return (
-            totalTime /
-            responseTimes.length
-        );
-    }
+            questionShownAt =
+                null;
 
 
-    // =====================================================
-    // INTERVIEW TIMER
-    // =====================================================
-
-    let elapsedSeconds = 0;
-
-    let timerInterval = null;
-
-    let paused = false;
+            responseTimerPausedAt =
+                null;
 
 
-    function updateTimer() {
-
-        if (paused) {
-            return;
+            pausedResponseDuration =
+                0;
         }
 
 
-        elapsedSeconds++;
+        function getAverageResponseTime() {
+
+            if (
+                responseTimes.length === 0
+            ) {
+
+                return 0;
+            }
 
 
-        const minutes =
-            Math.floor(
-                elapsedSeconds / 60
+            const totalTime =
+                responseTimes.reduce(
+                    (sum, time) =>
+                        sum + time,
+                    0
+                );
+
+
+            return (
+                totalTime /
+                responseTimes.length
             );
+        }
 
 
-        const seconds =
-            elapsedSeconds % 60;
+        // =====================================================
+        // INTERVIEW TIMER
+        // =====================================================
+
+        let elapsedSeconds =
+            0;
 
 
-        timerElement.textContent =
-            `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-    }
+        let timerInterval =
+            null;
 
 
-    timerInterval =
-        setInterval(
-            updateTimer,
-            1000
-        );
+        let paused =
+            false;
 
 
-    // =====================================================
-    // PAUSE / RESUME
-    // =====================================================
-
-    pauseBtn.addEventListener(
-        "click",
-        () => {
-
-            paused =
-                !paused;
-
+        function updateTimer() {
 
             if (paused) {
+                return;
+            }
+
+
+            elapsedSeconds++;
+
+
+            const minutes =
+                Math.floor(
+                    elapsedSeconds / 60
+                );
+
+
+            const seconds =
+                elapsedSeconds % 60;
+
+
+            timerElement.textContent =
+                `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        }
+
+
+        function startTimer() {
+
+            if (timerInterval !== null) {
+                return;
+            }
+
+
+            timerInterval =
+                setInterval(
+                    updateTimer,
+                    1000
+                );
+        }
+
+
+        function stopTimer() {
+
+            if (
+                timerInterval !== null
+            ) {
 
                 clearInterval(
                     timerInterval
                 );
 
 
-                pauseResponseTimer();
-
-
-                pauseBtn.innerHTML =
-                    "▶ Resume Interview";
-
-
-                answerInput.disabled =
-                    true;
-
-
-                sendAnswerBtn.disabled =
-                    true;
-
-
-                questionDescription.textContent =
-                    "Interview paused. Resume when you're ready.";
-
-            } else {
-
-                resumeResponseTimer();
-
-
                 timerInterval =
-                    setInterval(
-                        updateTimer,
-                        1000
-                    );
+                    null;
+            }
+        }
 
 
-                pauseBtn.innerHTML =
-                    "❚❚ Pause Interview";
+        // =====================================================
+        // LOAD CANDIDATE
+        // =====================================================
+
+        let candidate;
 
 
-                answerInput.disabled =
-                    false;
+        try {
+
+            const response =
+                await fetch(
+                    "/data/candidates.json"
+                );
 
 
-                sendAnswerBtn.disabled =
-                    false;
+            if (!response.ok) {
 
-
-                questionDescription.textContent =
-                    "Explain your reasoning and support your answer with a practical example.";
+                throw new Error(
+                    "Could not load candidates.json"
+                );
             }
 
-        }
-    );
 
-
-    // =====================================================
-    // LOAD CANDIDATE
-    // =====================================================
-
-    let candidate;
-
-
-    try {
-
-        const response =
-            await fetch(
-                "/data/candidates.json"
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Could not load candidates.json"
-            );
-        }
-
-
-        const data =
-            await response.json();
-
-
-        candidate =
-            data.candidates.find(
-                item =>
-                    item.member.id ===
-                    candidateId
-            );
-
-
-        if (!candidate) {
-
-            throw new Error(
-                "Candidate not found"
-            );
-        }
-
-
-        console.log(
-            "Candidate loaded:",
-            candidate
-        );
-
-
-        sessionStorage.setItem(
-            "interviewCandidate",
-            JSON.stringify(candidate)
-        );
-
-
-        sessionStorage.setItem(
-            "interviewSessionCandidateId",
-            candidateId
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Candidate loading error:",
-            error
-        );
-
-
-        questionText.textContent =
-            "Unable to load candidate.";
-
-
-        return;
-    }
-
-
-    // =====================================================
-    // START INTERVIEW
-    // =====================================================
-
-    try {
-
-        console.log(
-            "Starting interview..."
-        );
-
-
-        console.log(
-            "Sending session:",
-            sessionId
-        );
-
-
-        console.log(
-            "Sending candidate:",
-            candidate.member.id
-        );
-
-
-        const response =
-            await fetch(
-                "/api/interview",
-                {
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        sessionId:
-                            sessionId,
-
-                        candidate:
-                            candidate
-
-                    })
-                }
-            );
-
-
-        if (!response.ok) {
-
-            const error =
+            const data =
                 await response.json();
 
 
-            throw new Error(
-                error.detail ||
-                "Interview API failed"
+            candidate =
+                data.candidates.find(
+                    item =>
+                        item.member.id ===
+                        candidateId
+                );
+
+
+            if (!candidate) {
+
+                throw new Error(
+                    "Candidate not found"
+                );
+            }
+
+
+            console.log(
+                "Candidate loaded:",
+                candidate
             );
+
+
+            sessionStorage.setItem(
+                "interviewCandidate",
+                JSON.stringify(candidate)
+            );
+
+
+            sessionStorage.setItem(
+                "interviewSessionCandidateId",
+                candidateId
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Candidate loading error:",
+                error
+            );
+
+
+            questionText.textContent =
+                "Unable to load candidate.";
+
+
+            questionDescription.textContent =
+                error.message;
+
+
+            startInterviewBtn.disabled =
+                true;
+
+
+            return;
         }
 
 
-        const result =
-            await response.json();
-
-
-        console.log(
-            "Interview response:",
-            result
-        );
-
-
-        displayQuestion(
-            result.reply
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "Interview error:",
-            error
-        );
-
+        // =====================================================
+        // INITIAL UI STATE
+        // =====================================================
 
         questionText.textContent =
-            "Unable to start interview.";
+            "Ready to begin your interview.";
 
 
         questionDescription.textContent =
-            error.message;
-    }
+            "Click Start Interview when you're ready. Your first question will be generated by the AI interviewer.";
 
 
-    // =====================================================
-    // DISPLAY QUESTION
-    // =====================================================
-
-    function displayQuestion(
-        question
-    ) {
-
-        questionText.textContent =
-            question;
-
-
-        questionDescription.textContent =
-            "Explain your reasoning and support your answer with a practical example.";
+        timerElement.textContent =
+            "00:00";
 
 
         questionNumber.textContent =
-            currentQuestion;
+            "1";
 
 
         questionProgress.style.width =
-            `${(currentQuestion / total) * 100}%`;
+            "0%";
 
 
-        answerInput.value = "";
+        answerInput.value =
+            "";
 
 
-        characterCount.textContent =
-            "0 characters";
+        answerInput.disabled =
+            true;
 
 
-        startResponseTimer();
-    }
+        sendAnswerBtn.disabled =
+            true;
 
 
-    // =====================================================
-    // CHARACTER COUNT
-    // =====================================================
-
-    answerInput.addEventListener(
-        "input",
-        () => {
-
-            characterCount.textContent =
-                `${answerInput.value.length} characters`;
-        }
-    );
+        pauseBtn.disabled =
+            true;
 
 
-    // =====================================================
-    // SAVE FINAL INTERVIEW DATA
-    // =====================================================
-
-    function saveInterviewData(
-        feedback,
-        interviewHistory
-    ) {
-
-        // =============================================
-        // SAVE FEEDBACK
-        // =============================================
-
-        if (feedback) {
-
-            sessionStorage.setItem(
-                "interviewFeedback",
-                JSON.stringify(
-                    feedback
-                )
-            );
-        }
+        endInterviewBtn.disabled =
+            true;
 
 
-        // =============================================
-        // SAVE INTERVIEW HISTORY
-        //
-        // This is NEW.
-        //
-        // It allows Smart Analysis to work AFTER
-        // the backend session has been deleted.
-        // =============================================
-
-        if (interviewHistory) {
-
-            sessionStorage.setItem(
-                "interviewHistory",
-                JSON.stringify(
-                    interviewHistory
-                )
-            );
-
-            console.log(
-                "Interview history saved for Smart Analysis:",
-                interviewHistory
-            );
-        }
+        startInterviewBtn.disabled =
+            false;
 
 
-        // =============================================
-        // SAVE CANDIDATE
-        // =============================================
+        // =====================================================
+        // DISPLAY QUESTION
+        // =====================================================
 
-        sessionStorage.setItem(
-            "interviewCandidate",
-            JSON.stringify(
-                candidate
-            )
-        );
+        function displayQuestion(
+    question
+) {
 
-
-        sessionStorage.setItem(
-            "selectedCandidateId",
-            candidate.member.id
-        );
+    questionText.textContent =
+        question;
 
 
-        sessionStorage.setItem(
-            "interviewSessionCandidateId",
-            candidate.member.id
-        );
+    questionDescription.textContent =
+        "Explain your reasoning and support your answer with a practical example.";
 
 
-        // =============================================
-        // SAVE DURATION
-        // =============================================
-
-        sessionStorage.setItem(
-            "interviewDuration",
-            timerElement.textContent
-        );
+    questionNumber.textContent =
+        currentQuestion;
 
 
-        // =============================================
-        // SAVE RESPONSE TIME
-        // =============================================
-
-        const averageResponseTime =
-            getAverageResponseTime();
+    questionProgress.style.width =
+        `${(currentQuestion / total) * 100}%`;
 
 
-        sessionStorage.setItem(
-            "interviewAvgResponseTime",
-            averageResponseTime.toFixed(1)
-        );
+    answerInput.value =
+        "";
 
 
-        sessionStorage.setItem(
-            "interviewResponseTimes",
-            JSON.stringify(
-                responseTimes
-            )
-        );
+    // Update the textbox placeholder after
+    // the interview has started
+    answerInput.placeholder =
+        "Type your answer here... Explain your reasoning, implementation details, and practical examples.";
 
 
-        console.log(
-            "Final duration:",
-            timerElement.textContent
-        );
+    characterCount.textContent =
+        "0 characters";
 
 
-        console.log(
-            "Response times:",
-            responseTimes
-        );
+    answerInput.disabled =
+        false;
 
 
-        console.log(
-            "Average response time:",
-            averageResponseTime.toFixed(1),
-            "seconds"
-        );
-    }
+    sendAnswerBtn.disabled =
+        false;
 
 
-    // =====================================================
-    // SEND ANSWER
-    // =====================================================
-
-    sendAnswerBtn.addEventListener(
-        "click",
-        async () => {
-
-            const answer =
-                answerInput.value.trim();
+    startResponseTimer();
+}
 
 
-            if (!answer) {
+        // =====================================================
+        // START INTERVIEW
+        // =====================================================
+
+        async function startInterview() {
+
+            if (interviewStarted) {
                 return;
             }
 
 
-            if (paused) {
+            if (!candidate) {
+
+                console.error(
+                    "Cannot start interview without candidate."
+                );
+
+
                 return;
             }
 
 
-            recordResponseTime();
+            interviewStarted =
+                true;
+
+
+            startInterviewBtn.disabled =
+                true;
+
+
+            startInterviewBtn.innerHTML =
+                "<span>⏳</span> Starting...";
+
+
+            questionText.textContent =
+                "Preparing your first question...";
+
+
+            questionDescription.textContent =
+                "The AI interviewer is preparing your personalized question.";
+
+
+            answerInput.disabled =
+                true;
+
+
+            sendAnswerBtn.disabled =
+                true;
+
+
+            pauseBtn.disabled =
+                true;
+
+
+            endInterviewBtn.disabled =
+                true;
 
 
             try {
 
-                sendAnswerBtn.disabled =
-                    true;
+                console.log(
+                    "Starting interview..."
+                );
 
 
-                sendAnswerBtn.innerHTML =
-                    "<span>⏳</span> Thinking...";
+                console.log(
+                    "Sending session:",
+                    sessionId
+                );
+
+
+                console.log(
+                    "Sending candidate:",
+                    candidate.member.id
+                );
 
 
                 const response =
@@ -871,8 +863,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 sessionId:
                                     sessionId,
 
-                                message:
-                                    answer
+                                candidate:
+                                    candidate
 
                             })
                         }
@@ -881,13 +873,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 if (!response.ok) {
 
-                    const error =
-                        await response.json();
+                    let errorMessage =
+                        "Interview API failed";
+
+
+                    try {
+
+                        const error =
+                            await response.json();
+
+
+                        errorMessage =
+                            error.detail ||
+                            errorMessage;
+
+                    } catch (parseError) {
+
+                        console.error(
+                            "Could not parse API error:",
+                            parseError
+                        );
+                    }
 
 
                     throw new Error(
-                        error.detail ||
-                        "Failed to submit answer"
+                        errorMessage
                     );
                 }
 
@@ -897,46 +907,44 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
                 console.log(
-                    "Next response:",
+                    "Interview response:",
                     result
                 );
 
+                updateDifficultyPill(
+                    result.difficulty
+                );
 
-                // =============================================
-                // NATURAL COMPLETION
-                // =============================================
 
-                if (result.done) {
+                if (!result.reply) {
 
-                    console.log(
-                        "Interview completed naturally."
+                    throw new Error(
+                        "The interview API did not return a question."
                     );
-
-
-                    saveInterviewData(
-                        result.feedback,
-                        result.interview_history
-                    );
-
-
-                    clearInterval(
-                        timerInterval
-                    );
-
-
-                    window.location.href =
-                        "report.html";
-
-
-                    return;
                 }
 
 
-                // =============================================
-                // NEXT QUESTION
-                // =============================================
+                interviewStarted =
+                    true;
 
-                currentQuestion++;
+
+                paused =
+                    false;
+
+
+                startInterviewBtn.innerHTML =
+                    "<span>✓</span> Interview Started";
+
+
+                pauseBtn.disabled =
+                    false;
+
+
+                endInterviewBtn.disabled =
+                    false;
+
+
+                startTimer();
 
 
                 displayQuestion(
@@ -947,196 +955,710 @@ document.addEventListener("DOMContentLoaded", async () => {
             } catch (error) {
 
                 console.error(
-                    "Answer error:",
+                    "Interview error:",
                     error
                 );
 
 
-                alert(
-                    error.message
-                );
+                interviewStarted =
+                    false;
 
 
-            } finally {
-
-                if (!paused) {
-
-                    sendAnswerBtn.disabled =
-                        false;
-                }
+                stopTimer();
 
 
-                sendAnswerBtn.innerHTML =
-                    "<span>➤</span> Send Answer";
-            }
-
-        }
-    );
+                questionText.textContent =
+                    "Unable to start interview.";
 
 
-    // =====================================================
-    // CTRL + ENTER
-    // =====================================================
-
-    answerInput.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.ctrlKey &&
-                event.key === "Enter"
-            ) {
-
-                event.preventDefault();
+                questionDescription.textContent =
+                    error.message;
 
 
-                if (!paused) {
-
-                    sendAnswerBtn.click();
-                }
-            }
-        }
-    );
+                startInterviewBtn.disabled =
+                    false;
 
 
-    // =====================================================
-    // END INTERVIEW
-    // =====================================================
-
-    endInterviewBtn.addEventListener(
-        "click",
-        async () => {
-
-            const confirmEnd =
-                confirm(
-                    "Are you sure you want to end the interview?"
-                );
+                startInterviewBtn.innerHTML =
+                    "<span>▶</span> Start Interview";
 
 
-            if (!confirmEnd) {
-                return;
-            }
-
-
-            try {
-
-                if (!paused) {
-
-                    recordResponseTime();
-                }
-
-
-                clearInterval(
-                    timerInterval
-                );
+                pauseBtn.disabled =
+                    true;
 
 
                 endInterviewBtn.disabled =
                     true;
 
 
-                endInterviewBtn.innerHTML =
-                    "<span>⏳</span> Generating Report...";
+                answerInput.disabled =
+                    true;
 
 
-                console.log(
-                    "Ending interview..."
+                sendAnswerBtn.disabled =
+                    true;
+            }
+        }
+
+
+        // =====================================================
+        // START BUTTON
+        // =====================================================
+
+        startInterviewBtn.addEventListener(
+            "click",
+            startInterview
+        );
+
+
+        // =====================================================
+        // PAUSE / RESUME
+        // =====================================================
+
+        pauseBtn.addEventListener(
+            "click",
+            () => {
+
+                if (!interviewStarted) {
+                    return;
+                }
+
+
+                paused =
+                    !paused;
+
+
+                if (paused) {
+
+                    stopTimer();
+
+
+                    pauseResponseTimer();
+
+
+                    pauseBtn.innerHTML =
+                        "▶ Resume Interview";
+
+
+                    answerInput.disabled =
+                        true;
+
+
+                    sendAnswerBtn.disabled =
+                        true;
+
+
+                    questionDescription.textContent =
+                        "Interview paused. Resume when you're ready.";
+
+
+                } else {
+
+                    resumeResponseTimer();
+
+
+                    startTimer();
+
+
+                    pauseBtn.innerHTML =
+                        "❚❚ Pause Interview";
+
+
+                    answerInput.disabled =
+                        false;
+
+
+                    sendAnswerBtn.disabled =
+                        false;
+
+
+                    questionDescription.textContent =
+                        "Explain your reasoning and support your answer with a practical example.";
+                }
+
+            }
+        );
+
+
+        // =====================================================
+        // CHARACTER COUNT
+        // =====================================================
+
+        answerInput.addEventListener(
+            "input",
+            () => {
+
+                characterCount.textContent =
+                    `${answerInput.value.length} characters`;
+            }
+        );
+
+
+        // =====================================================
+        // SAVE FINAL INTERVIEW DATA
+        // =====================================================
+
+        function saveInterviewData(
+            feedback,
+            interviewHistory
+        ) {
+
+            // =============================================
+            // SAVE FEEDBACK
+            // =============================================
+
+            if (feedback) {
+
+                sessionStorage.setItem(
+                    "interviewFeedback",
+                    JSON.stringify(
+                        feedback
+                    )
+                );
+            }
+
+
+            // =============================================
+            // SAVE INTERVIEW HISTORY
+            // =============================================
+
+            if (interviewHistory) {
+
+                sessionStorage.setItem(
+                    "interviewHistory",
+                    JSON.stringify(
+                        interviewHistory
+                    )
                 );
 
 
-                const response =
-                    await fetch(
-                        "/api/interview",
-                        {
-                            method: "POST",
+                console.log(
+                    "Interview history saved for Smart Analysis:",
+                    interviewHistory
+                );
+            }
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
 
-                            body: JSON.stringify({
+            // =============================================
+            // SAVE CANDIDATE
+            // =============================================
 
-                                sessionId:
-                                    sessionId,
+            sessionStorage.setItem(
+                "interviewCandidate",
+                JSON.stringify(
+                    candidate
+                )
+            );
 
-                                endInterview:
-                                    true
 
-                            })
+            sessionStorage.setItem(
+                "selectedCandidateId",
+                candidate.member.id
+            );
+
+
+            sessionStorage.setItem(
+                "interviewSessionCandidateId",
+                candidate.member.id
+            );
+
+
+            // =============================================
+            // SAVE DURATION
+            // =============================================
+
+            sessionStorage.setItem(
+                "interviewDuration",
+                timerElement.textContent
+            );
+
+
+            // =============================================
+            // SAVE RESPONSE TIME
+            // =============================================
+
+            const averageResponseTime =
+                getAverageResponseTime();
+
+
+            sessionStorage.setItem(
+                "interviewAvgResponseTime",
+                averageResponseTime.toFixed(1)
+            );
+
+
+            sessionStorage.setItem(
+                "interviewResponseTimes",
+                JSON.stringify(
+                    responseTimes
+                )
+            );
+
+
+            console.log(
+                "Final duration:",
+                timerElement.textContent
+            );
+
+
+            console.log(
+                "Response times:",
+                responseTimes
+            );
+
+
+            console.log(
+                "Average response time:",
+                averageResponseTime.toFixed(1),
+                "seconds"
+            );
+        }
+
+
+        // =====================================================
+        // SEND ANSWER
+        // =====================================================
+
+        sendAnswerBtn.addEventListener(
+            "click",
+            async () => {
+
+                if (!interviewStarted) {
+                    return;
+                }
+
+
+                const answer =
+                    answerInput.value.trim();
+
+
+                if (!answer) {
+                    return;
+                }
+
+
+                if (paused) {
+                    return;
+                }
+
+
+                recordResponseTime();
+
+
+                try {
+
+                    sendAnswerBtn.disabled =
+                        true;
+
+
+                    sendAnswerBtn.innerHTML =
+                        "<span>⏳</span> Thinking...";
+
+
+                    const response =
+                        await fetch(
+                            "/api/interview",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    sessionId:
+                                        sessionId,
+
+                                    message:
+                                        answer
+
+                                })
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        let errorMessage =
+                            "Failed to submit answer";
+
+
+                        try {
+
+                            const error =
+                                await response.json();
+
+
+                            errorMessage =
+                                error.detail ||
+                                errorMessage;
+
+                        } catch (parseError) {
+
+                            console.error(
+                                "Could not parse answer error:",
+                                parseError
+                            );
                         }
-                    );
 
 
-                if (!response.ok) {
+                        throw new Error(
+                            errorMessage
+                        );
+                    }
 
-                    const error =
+
+                    const result =
                         await response.json();
 
 
-                    throw new Error(
-                        error.detail ||
-                        "Failed to generate interview report"
+                    console.log(
+                        "Next response:",
+                        result
                     );
-                }
 
-
-                const result =
-                    await response.json();
-
-
-                console.log(
-                    "Final interview result:",
-                    result
-                );
-
-
-                // =============================================
-                // SAVE BOTH FEEDBACK + INTERVIEW HISTORY
-                // =============================================
-
-                saveInterviewData(
-                    result.feedback,
-                    result.interview_history
-                );
-
-
-                window.location.href =
-                    "report.html";
-
-
-            } catch (error) {
-
-                console.error(
-                    "End interview error:",
-                    error
-                );
-
-
-                alert(
-                    error.message
-                );
-
-
-                if (!paused) {
-
-                    timerInterval =
-                        setInterval(
-                            updateTimer,
-                            1000
+                    updateDifficultyPill(
+                            result.difficulty
                         );
+
+
+                    // =============================================
+                    // ANSWER SUCCESSFULLY SUBMITTED
+                    // =============================================
+
+                    answeredQuestions++;
+
+
+                    sessionStorage.setItem(
+                        "interviewAnsweredQuestions",
+                        String(answeredQuestions)
+                    );
+
+
+                    console.log(
+                        "Answers submitted:",
+                        answeredQuestions
+                    );
+
+
+                    // =============================================
+                    // NATURAL COMPLETION
+                    // =============================================
+
+                    if (result.done) {
+
+                        console.log(
+                            "Interview completed naturally."
+                        );
+
+
+                        saveInterviewData(
+                            result.feedback,
+                            result.interview_history
+                        );
+
+
+                        stopTimer();
+
+
+                        interviewStarted =
+                            false;
+
+
+                        window.location.href =
+                            "report.html";
+
+
+                        return;
+                    }
+
+
+                    // =============================================
+                    // NEXT QUESTION
+                    // =============================================
+
+                    currentQuestion++;
+
+
+                    displayQuestion(
+                        result.reply
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Answer error:",
+                        error
+                    );
+
+
+                    alert(
+                        error.message
+                    );
+
+
+                } finally {
+
+                    if (
+                        interviewStarted &&
+                        !paused
+                    ) {
+
+                        sendAnswerBtn.disabled =
+                            false;
+                    }
+
+
+                    sendAnswerBtn.innerHTML =
+                        "<span>➤</span> Send Answer";
+                }
+
+            }
+        );
+
+
+        // =====================================================
+        // CTRL + ENTER
+        // =====================================================
+
+        answerInput.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.ctrlKey &&
+                    event.key === "Enter"
+                ) {
+
+                    event.preventDefault();
+
+
+                    if (
+                        interviewStarted &&
+                        !paused
+                    ) {
+
+                        sendAnswerBtn.click();
+                    }
+                }
+            }
+        );
+
+
+        // =====================================================
+        // END INTERVIEW
+        // =====================================================
+
+        endInterviewBtn.addEventListener(
+            "click",
+            async () => {
+
+                if (!interviewStarted) {
+                    return;
                 }
 
 
-                endInterviewBtn.disabled =
-                    false;
+                // =================================================
+                // DO NOT END AN INTERVIEW WITH ZERO ANSWERS
+                // =================================================
+
+                if (
+                    answeredQuestions === 0
+                ) {
+
+                    alert(
+                        "Please answer at least one question before ending the interview."
+                    );
 
 
-                endInterviewBtn.innerHTML =
-                    "<span>■</span> End Interview";
+                    return;
+                }
+
+
+                const confirmEnd =
+                    confirm(
+                        "Are you sure you want to end the interview?"
+                    );
+
+
+                if (!confirmEnd) {
+                    return;
+                }
+
+
+                try {
+
+                    if (!paused) {
+
+                        recordResponseTime();
+                    }
+
+
+                    stopTimer();
+
+
+                    endInterviewBtn.disabled =
+                        true;
+
+
+                    pauseBtn.disabled =
+                        true;
+
+
+                    sendAnswerBtn.disabled =
+                        true;
+
+
+                    answerInput.disabled =
+                        true;
+
+
+                    endInterviewBtn.innerHTML =
+                        "<span>⏳</span> Generating Report...";
+
+
+                    console.log(
+                        "Ending interview..."
+                    );
+
+
+                    console.log(
+                        "Answers submitted:",
+                        answeredQuestions
+                    );
+
+
+                    const response =
+                        await fetch(
+                            "/api/interview",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    sessionId:
+                                        sessionId,
+
+                                    endInterview:
+                                        true
+
+                                })
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        let errorMessage =
+                            "Failed to generate interview report";
+
+
+                        try {
+
+                            const error =
+                                await response.json();
+
+
+                            errorMessage =
+                                error.detail ||
+                                errorMessage;
+
+                        } catch (parseError) {
+
+                            console.error(
+                                "Could not parse end interview error:",
+                                parseError
+                            );
+                        }
+
+
+                        throw new Error(
+                            errorMessage
+                        );
+                    }
+
+
+                    const result =
+                        await response.json();
+
+
+                    console.log(
+                        "Final interview result:",
+                        result
+                    );
+
+
+                    // =============================================
+                    // SAVE FEEDBACK + INTERVIEW HISTORY
+                    // =============================================
+
+                    saveInterviewData(
+                        result.feedback,
+                        result.interview_history
+                    );
+
+
+                    interviewStarted =
+                        false;
+
+
+                    window.location.href =
+                        "report.html";
+
+
+                } catch (error) {
+
+                    console.error(
+                        "End interview error:",
+                        error
+                    );
+
+
+                    alert(
+                        error.message
+                    );
+
+
+                    if (interviewStarted) {
+
+                        if (!paused) {
+
+                            startTimer();
+                        }
+
+
+                        endInterviewBtn.disabled =
+                            false;
+
+
+                        pauseBtn.disabled =
+                            false;
+
+
+                        answerInput.disabled =
+                            paused;
+
+
+                        sendAnswerBtn.disabled =
+                            paused;
+                    }
+
+
+                    endInterviewBtn.innerHTML =
+                        "<span>■</span> End Interview";
+                }
+
             }
+        );
 
-        }
-    );
 
-});
+    }
+);

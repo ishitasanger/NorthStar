@@ -89,6 +89,8 @@ body {
 
     opacity: .17;
 
+    pointer-events: none;
+
     animation:
         floatingOrb
         13s
@@ -156,6 +158,8 @@ body {
     box-shadow:
         0 0 12px #a855f7,
         0 0 22px rgba(168,85,247,.6);
+
+    pointer-events: none;
 
     animation:
         particle
@@ -729,6 +733,8 @@ body {
 
     right: -80px;
     top: -80px;
+
+    pointer-events: none;
 }
 
 
@@ -806,6 +812,7 @@ body {
         );
 
     -webkit-background-clip: text;
+    background-clip: text;
 
     color: transparent;
 }

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Optional
+import json
 
 from services.session_service import (
     create_session,
@@ -22,6 +23,7 @@ router = APIRouter(
 # =========================================================
 
 class CandidateMember(BaseModel):
+
     id: str
     name: str
     jobRole: str
@@ -31,6 +33,7 @@ class CandidateMember(BaseModel):
 
 
 class Mission(BaseModel):
+
     day: int
     title: str
     passed: Optional[bool] = None
@@ -39,12 +42,14 @@ class Mission(BaseModel):
 
 
 class CandidateSignals(BaseModel):
+
     commitDays: int
     missionsCompleted: int
     missionsFirstTry: int
 
 
 class Candidate(BaseModel):
+
     member: CandidateMember
     missions: list[Mission]
     signals: CandidateSignals
@@ -55,6 +60,7 @@ class Candidate(BaseModel):
 # =========================================================
 
 class InterviewHistory(BaseModel):
+
     questions: list[str] = []
     answers: list[str] = []
     evaluations: list = []
@@ -65,6 +71,7 @@ class InterviewHistory(BaseModel):
 # =========================================================
 
 class InterviewRequest(BaseModel):
+
     sessionId: str
 
     candidate: Optional[Candidate] = None
@@ -84,6 +91,7 @@ class InterviewRequest(BaseModel):
 # =========================================================
 
 class SkillScores(BaseModel):
+
     technical_skills: float
     communication: float
     problem_solving: float
@@ -91,12 +99,14 @@ class SkillScores(BaseModel):
 
 
 class TopicPerformance(BaseModel):
+
     topic: str
     score: float
     comment: str
 
 
 class Feedback(BaseModel):
+
     summary: str
     overall_score: int
     questions_answered: int
@@ -116,6 +126,7 @@ class Feedback(BaseModel):
 # =========================================================
 
 class SmartAnalysisItem(BaseModel):
+
     question: str
     candidate_answer: str
     ideal_answer: str
@@ -132,8 +143,16 @@ class SmartAnalysisItem(BaseModel):
 # =========================================================
 
 class InterviewResponse(BaseModel):
+
     reply: str
+
     done: bool
+
+    # =====================================================
+    # ADAPTIVE DIFFICULTY
+    # =====================================================
+
+    difficulty: Optional[str] = None
 
     feedback: Optional[Feedback] = None
 
@@ -155,6 +174,9 @@ def generate_smart_analysis(
     answers = history.answers
     evaluations = history.evaluations
 
+    # =====================================================
+    # VALIDATE HISTORY
+    # =====================================================
 
     if not questions or not answers:
 
@@ -166,94 +188,314 @@ def generate_smart_analysis(
             )
         )
 
+    # =====================================================
+    # PASS 1
+    # Generate the detailed analysis
+    # =====================================================
 
-    analysis_prompt = f"""
-You are an expert technical interview coach.
+    first_prompt = f"""
+You are an expert technical interview evaluator.
 
-Your job is to analyze a candidate's REAL interview answers.
+Analyze the candidate's interview answers.
 
-Candidate:
+Your primary task is to determine what a strong candidate
+would need to cover for EACH question and compare that
+against what the candidate actually said.
+
+CANDIDATE:
 {candidate}
 
-Interview Questions:
+QUESTIONS:
 {questions}
 
-Candidate Answers:
+CANDIDATE ANSWERS:
 {answers}
 
-Existing Evaluations:
+EXISTING EVALUATIONS:
 {evaluations}
 
-For EVERY question-answer pair, produce a detailed
-but concise analysis.
+For every question:
 
-For each question provide:
-
-1. ideal_answer
-
-- Give the answer a strong technical candidate
-  should ideally give.
-- Be technically correct.
-- Explain the important reasoning.
-- Do not make it unnecessarily long.
-
-2. missing_points
-
-- List important concepts that were expected
-  but missing from the candidate's answer.
-- If nothing important was missing, return [].
-
-3. additional_points
-
-- List useful points that were not necessary
-  but would have made the answer stronger.
-- Examples, edge cases, complexity,
-  trade-offs, practical considerations, etc.
-- If there are no meaningful additional points,
-  return [].
-
-4. what_was_wrong
-
-- Identify technically incorrect statements,
-  misconceptions, or reasoning mistakes.
-- Do NOT invent mistakes.
-- If the answer was completely correct,
-  return [].
-
-5. how_to_improve
-
-- Give specific advice for improving THIS answer.
-- Do not give generic motivational advice.
+1. Understand exactly what the question asks.
+2. Identify the important concepts required to answer it.
+3. Identify the concepts the candidate actually covered.
+4. Identify concepts the candidate completely failed to
+   mention.
+5. Identify statements the candidate made that were
+   incorrect, vague, misleading, or oversimplified.
+6. Create a technically strong ideal answer.
+7. Give specific advice for improvement.
 
 IMPORTANT:
 
-- Analyze the candidate's actual answer.
-- Do not assume the candidate said something
-  they did not say.
-- Do not invent missing information.
-- If the candidate's answer is correct,
-  acknowledge that.
-- Keep the ideal answer educational
-  and interview-ready.
-- Use simple, clear language.
-- Return ONLY valid JSON.
+A concept that is necessary to properly answer the question
+is NOT an optional additional point.
 
-Return exactly this structure:
+For example, if a question asks about:
+
+"How would you implement vector search and make retrieval
+efficient?"
+
+then concepts such as:
+
+- similarity metrics
+- nearest-neighbor search
+- indexing
+- approximate nearest-neighbor search
+- retrieval efficiency
+- scalability
+
+may be REQUIRED concepts.
+
+If the candidate did not discuss them, they are missing.
+
+Do not assume that mentioning a related technology means
+the candidate covered the underlying concept.
+
+Return ONLY valid JSON.
+
+Use exactly:
 
 {{
     "analysis": [
         {{
-            "question": "question text",
-            "candidate_answer": "candidate answer",
+            "question": "question",
+            "candidate_answer": "answer",
             "ideal_answer": "ideal answer",
-            "missing_points": [
-                "missing point"
+            "required_concepts": [
+                "concept required by the question"
+            ],
+            "covered_concepts": [
+                "concept actually covered"
+            ],
+            "missing_concepts": [
+                "required concept not covered"
+            ],
+            "weak_points": [
+                "incorrect or weak statement"
             ],
             "additional_points": [
-                "additional point"
+                "optional enhancement"
+            ],
+            "how_to_improve": "specific advice"
+        }}
+    ]
+}}
+"""
+
+    try:
+
+        first_response = generate_response(
+            first_prompt
+        )
+
+    except Exception as error:
+
+        print(
+            "Smart analysis first-pass error:",
+            error
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to generate smart analysis."
+        )
+
+    # =====================================================
+    # PARSE PASS 1
+    # =====================================================
+
+    try:
+
+        cleaned_first = first_response.strip()
+
+        if cleaned_first.startswith("```json"):
+            cleaned_first = cleaned_first[7:]
+
+        if cleaned_first.startswith("```"):
+            cleaned_first = cleaned_first[3:]
+
+        if cleaned_first.endswith("```"):
+            cleaned_first = cleaned_first[:-3]
+
+        first_data = json.loads(
+            cleaned_first.strip()
+        )
+
+        first_analysis = first_data.get(
+            "analysis",
+            []
+        )
+
+    except Exception as error:
+
+        print(
+            "Smart analysis first-pass JSON error:",
+            error
+        )
+
+        print(
+            "Raw first-pass response:",
+            first_response
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Smart analysis first pass "
+                "returned invalid JSON."
+            )
+        )
+
+    # =====================================================
+    # PASS 2
+    #
+    # Specifically validate MISSING concepts.
+    #
+    # This pass is intentionally independent from
+    # additional_points.
+    # =====================================================
+
+    second_prompt = f"""
+You are performing a FINAL VALIDATION of a technical
+interview analysis.
+
+Your ONLY important task is to correctly identify
+REQUIRED concepts that the candidate FAILED to mention.
+
+Do NOT confuse missing concepts with optional additional
+information.
+
+Here is the analysis from the first evaluator:
+
+{json.dumps(first_analysis, indent=2)}
+
+=========================================================
+MISSING CONCEPT DEFINITION
+=========================================================
+
+A missing concept is:
+
+A concept that is important or necessary for a strong,
+technically complete answer to the QUESTION, but which
+does NOT appear in the candidate's actual answer.
+
+If the candidate did not mention it, it can be missing.
+
+If the candidate mentioned it incorrectly or vaguely,
+it should be considered a weak point instead.
+
+=========================================================
+CRITICAL RULE
+=========================================================
+
+For EACH question:
+
+1. Read the question.
+2. Determine what the question requires.
+3. Read the candidate's answer.
+4. List the concepts actually covered.
+5. Compare them.
+6. Every important required concept that is absent
+   MUST appear in missing_points.
+
+Do NOT move required concepts into additional_points.
+
+=========================================================
+EXAMPLE
+=========================================================
+
+QUESTION:
+
+"How would you implement a basic vector search algorithm
+to find similar items in a high-dimensional vector space,
+and what considerations would you take into account for
+efficient retrieval?"
+
+CANDIDATE ANSWER:
+
+"I would use embeddings to represent the data as vectors
+and compare the vectors to find similar items. For efficient
+retrieval, I would use a vector database."
+
+This answer is incomplete.
+
+Likely missing concepts include:
+
+- similarity metric
+- cosine similarity or another distance function
+- nearest-neighbor search
+- indexing
+- exact vs approximate nearest-neighbor search
+- ANN techniques
+- high-dimensional search considerations
+- retrieval speed vs accuracy trade-off
+- scalability
+
+These are NOT merely additional points.
+
+They are missing because the question explicitly asks
+HOW the search works and HOW retrieval is made efficient.
+
+=========================================================
+ANOTHER IMPORTANT EXAMPLE
+=========================================================
+
+QUESTION:
+
+"Explain relational databases, NoSQL databases and file
+systems and provide a scenario where each should be used."
+
+CANDIDATE ANSWER:
+
+"Relational databases use tables. NoSQL is flexible.
+File systems store files. I would use relational databases
+for structured data, NoSQL for lots of data, and file systems
+for documents."
+
+Missing concepts could include:
+
+- relationships
+- SQL/querying
+- ACID transactions
+- NoSQL data models
+- NoSQL scalability characteristics
+- file-system characteristics
+- concrete scenarios
+- trade-offs
+
+=========================================================
+DO NOT OVER-PENALIZE
+=========================================================
+
+Do not invent missing concepts that are irrelevant to the
+specific question.
+
+Only include concepts that are genuinely important to
+answering the question well.
+
+=========================================================
+OUTPUT
+=========================================================
+
+Return ONLY valid JSON.
+
+Return:
+
+{{
+    "analysis": [
+        {{
+            "question": "question",
+            "candidate_answer": "answer",
+            "ideal_answer": "ideal answer",
+            "missing_points": [
+                "required concept that was actually missing"
+            ],
+            "additional_points": [
+                "optional improvement"
             ],
             "what_was_wrong": [
-                "incorrect point"
+                "incorrect or weak statement actually made"
             ],
             "how_to_improve": "specific improvement advice"
         }}
@@ -261,6 +503,124 @@ Return exactly this structure:
 }}
 """
 
+    try:
+
+        second_response = generate_response(
+            second_prompt
+        )
+
+    except Exception as error:
+
+        print(
+            "Smart analysis second-pass error:",
+            error
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail="Unable to validate smart analysis."
+        )
+
+    # =====================================================
+    # PARSE PASS 2
+    # =====================================================
+
+    try:
+
+        cleaned_second = second_response.strip()
+
+        if cleaned_second.startswith("```json"):
+            cleaned_second = cleaned_second[7:]
+
+        if cleaned_second.startswith("```"):
+            cleaned_second = cleaned_second[3:]
+
+        if cleaned_second.endswith("```"):
+            cleaned_second = cleaned_second[:-3]
+
+        second_data = json.loads(
+            cleaned_second.strip()
+        )
+
+        final_analysis = second_data.get(
+            "analysis",
+            []
+        )
+
+    except Exception as error:
+
+        print(
+            "Smart analysis second-pass JSON error:",
+            error
+        )
+
+        print(
+            "Raw second-pass response:",
+            second_response
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Smart analysis second pass "
+                "returned invalid JSON."
+            )
+        )
+
+    # =====================================================
+    # FINAL NORMALIZATION
+    # =====================================================
+
+    normalized_analysis = []
+
+    for item in final_analysis:
+
+        normalized_analysis.append({
+
+            "question":
+                item.get(
+                    "question",
+                    ""
+                ),
+
+            "candidate_answer":
+                item.get(
+                    "candidate_answer",
+                    ""
+                ),
+
+            "ideal_answer":
+                item.get(
+                    "ideal_answer",
+                    ""
+                ),
+
+            "missing_points":
+                item.get(
+                    "missing_points",
+                    []
+                ),
+
+            "additional_points":
+                item.get(
+                    "additional_points",
+                    []
+                ),
+
+            "what_was_wrong":
+                item.get(
+                    "what_was_wrong",
+                    []
+                ),
+
+            "how_to_improve":
+                item.get(
+                    "how_to_improve",
+                    ""
+                )
+        })
+
+    return normalized_analysis
 
     # =====================================================
     # CALL LLM
@@ -289,27 +649,36 @@ Return exactly this structure:
     # PARSE JSON RESPONSE
     # =====================================================
 
-    import json
-
-
     try:
 
         cleaned_response = raw_response.strip()
 
 
-        if cleaned_response.startswith("```json"):
+        if cleaned_response.startswith(
+            "```json"
+        ):
 
-            cleaned_response = cleaned_response[7:]
+            cleaned_response = (
+                cleaned_response[7:]
+            )
 
 
-        if cleaned_response.startswith("```"):
+        if cleaned_response.startswith(
+            "```"
+        ):
 
-            cleaned_response = cleaned_response[3:]
+            cleaned_response = (
+                cleaned_response[3:]
+            )
 
 
-        if cleaned_response.endswith("```"):
+        if cleaned_response.endswith(
+            "```"
+        ):
 
-            cleaned_response = cleaned_response[:-3]
+            cleaned_response = (
+                cleaned_response[:-3]
+            )
 
 
         parsed = json.loads(
@@ -397,9 +766,15 @@ def interview(
 
 
         return {
-            "reply": "Smart analysis generated.",
-            "done": True,
-            "smart_analysis": analysis
+
+            "reply":
+                "Smart analysis generated.",
+
+            "done":
+                True,
+
+            "smart_analysis":
+                analysis
         }
 
 
@@ -429,7 +804,9 @@ def interview(
             )
 
 
-        candidate = request.candidate.model_dump()
+        candidate = (
+            request.candidate.model_dump()
+        )
 
 
         from agent.data_loader import load_curriculum
@@ -445,12 +822,21 @@ def interview(
         )
 
 
-        question = interviewer.generate_question()
+        question = (
+            interviewer.generate_question()
+        )
 
 
         return {
-            "reply": question,
-            "done": False
+
+            "reply":
+                question,
+
+            "done":
+                False,
+
+            "difficulty":
+                interviewer.state_machine.get_difficulty()
         }
 
 
@@ -460,7 +846,9 @@ def interview(
 
     if request.endInterview:
 
-        feedback = session.generate_feedback()
+        feedback = (
+            session.generate_feedback()
+        )
 
 
         interview_history = (
@@ -474,10 +862,18 @@ def interview(
 
 
         return {
-            "reply": "Interview completed.",
-            "done": True,
-            "feedback": feedback,
-            "interview_history": interview_history
+
+            "reply":
+                "Interview completed.",
+
+            "done":
+                True,
+
+            "feedback":
+                feedback,
+
+            "interview_history":
+                interview_history
         }
 
 
@@ -487,8 +883,10 @@ def interview(
 
     if request.message:
 
-        result = session.process_answer(
-            request.message
+        result = (
+            session.process_answer(
+                request.message
+            )
         )
 
 
@@ -504,8 +902,15 @@ def interview(
 
 
             return {
-                "reply": next_question,
-                "done": False
+
+                "reply":
+                    next_question,
+
+                "done":
+                    False,
+
+                "difficulty":
+                    result["difficulty"]
             }
 
 
@@ -513,7 +918,9 @@ def interview(
         # NATURAL COMPLETION
         # =================================================
 
-        feedback = session.generate_feedback()
+        feedback = (
+            session.generate_feedback()
+        )
 
 
         interview_history = (
@@ -527,10 +934,18 @@ def interview(
 
 
         return {
-            "reply": "Interview completed.",
-            "done": True,
-            "feedback": feedback,
-            "interview_history": interview_history
+
+            "reply":
+                "Interview completed.",
+
+            "done":
+                True,
+
+            "feedback":
+                feedback,
+
+            "interview_history":
+                interview_history
         }
 
 

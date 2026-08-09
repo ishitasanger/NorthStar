@@ -61,6 +61,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    // =====================================================
+    // DO NOT SHOW REPORT IF NOTHING WAS ANSWERED
+    // =====================================================
+
+    const questionsAnswered =
+        Number(feedback.questions_answered) || 0;
+
+
+    if (questionsAnswered === 0) {
+
+        console.log(
+            "Interview exists, but no questions were answered."
+        );
+
+        showNoReportMessage();
+
+        return;
+    }
+
+
     console.log("Report feedback:", feedback);
     console.log("Report candidate:", candidate);
 
@@ -255,17 +275,13 @@ document.addEventListener("DOMContentLoaded", () => {
             statCards[1].querySelector("small");
 
 
+        // IMPORTANT:
+        // Do NOT use overall_score as a fallback.
+        // If average_accuracy is unavailable,
+        // show N/A instead.
+
         let averageAccuracy =
             feedback.average_accuracy;
-
-
-        if (
-            averageAccuracy === undefined ||
-            averageAccuracy === null
-        ) {
-
-            averageAccuracy = score;
-        }
 
 
         averageAccuracy =
@@ -878,7 +894,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // =====================================================
-    // NEW INTERVIEW
+    // NEW INTERVIEW BUTTONS
     // =====================================================
 
     const newInterviewBtn =
@@ -1032,16 +1048,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function showNoReportMessage() {
 
-    const mainContent =
-        document.querySelector(
-            ".main-content"
-        );
+    console.log("showNoReportMessage() called");
 
+    const mainContent =
+        document.querySelector(".main-content");
 
     if (!mainContent) {
+
+        console.error(
+            "ERROR: .main-content not found"
+        );
+
         return;
     }
 
+
+    // =====================================================
+    // CREATE NO REPORT SCREEN
+    // =====================================================
 
     mainContent.innerHTML = `
 
@@ -1071,6 +1095,7 @@ function showNoReportMessage() {
                     ◈
                 </div>
 
+
                 <div
                     style="
                         font-size:12px;
@@ -1082,6 +1107,7 @@ function showNoReportMessage() {
                     INTERVIEW REPORT
                 </div>
 
+
                 <h1
                     style="
                         margin-bottom:15px;
@@ -1090,24 +1116,17 @@ function showNoReportMessage() {
                     Complete an interview first
                 </h1>
 
+
                 <p
                     style="
                         line-height:1.7;
                         opacity:.75;
-                        margin-bottom:30px;
                     "
                 >
                     Your performance report will be
                     generated automatically after you
                     complete an interview.
                 </p>
-
-                <button
-                    id="startInterviewFromReport"
-                    class="primary-btn"
-                >
-                    + Start Interview
-                </button>
 
             </div>
 
@@ -1116,97 +1135,8 @@ function showNoReportMessage() {
     `;
 
 
-    const startButton =
-        document.getElementById(
-            "startInterviewFromReport"
-        );
+    console.log(
+        "No-report message displayed."
+    );
 
-
-    if (startButton) {
-
-        startButton.addEventListener(
-            "click",
-            () => {
-
-                let candidateId =
-                    sessionStorage.getItem(
-                        "selectedCandidateId"
-                    );
-
-
-                if (!candidateId) {
-
-                    const candidateData =
-                        sessionStorage.getItem(
-                            "interviewCandidate"
-                        );
-
-
-                    if (candidateData) {
-
-                        try {
-
-                            const candidate =
-                                JSON.parse(candidateData);
-
-
-                            candidateId =
-                                candidate?.member?.id ||
-                                null;
-
-                        } catch (error) {
-
-                            console.error(
-                                "Could not recover candidate:",
-                                error
-                            );
-                        }
-                    }
-                }
-
-
-                if (candidateId) {
-
-                    sessionStorage.removeItem(
-                        "interviewSessionId"
-                    );
-
-                    sessionStorage.removeItem(
-                        "interviewFeedback"
-                    );
-
-                    sessionStorage.removeItem(
-                        "interviewDuration"
-                    );
-
-                    sessionStorage.removeItem(
-                        "interviewAvgResponseTime"
-                    );
-
-                    sessionStorage.removeItem(
-                        "interviewResponseTimes"
-                    );
-
-                    sessionStorage.removeItem(
-                        "interviewHistory"
-                    );
-
-
-                    sessionStorage.setItem(
-                        "selectedCandidateId",
-                        candidateId
-                    );
-
-
-                    window.location.href =
-                        `interview.html?candidate=${encodeURIComponent(candidateId)}`;
-
-                } else {
-
-                    window.location.href =
-                        "../candidate.html";
-                }
-            }
-        );
-    }
 }
