@@ -25,9 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!feedbackData) {
 
-        console.log(
-            "No completed interview found."
-        );
+        console.log("No completed interview found.");
 
         showNoReportMessage();
 
@@ -44,13 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
 
-        feedback =
-            JSON.parse(feedbackData);
+        feedback = JSON.parse(feedbackData);
 
         if (candidateData) {
-
-            candidate =
-                JSON.parse(candidateData);
+            candidate = JSON.parse(candidateData);
         }
 
     } catch (error) {
@@ -66,15 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    console.log(
-        "Report feedback:",
-        feedback
-    );
-
-    console.log(
-        "Report candidate:",
-        candidate
-    );
+    console.log("Report feedback:", feedback);
+    console.log("Report candidate:", candidate);
 
 
     // =====================================================
@@ -87,15 +75,44 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
         const reportDescription =
-            document.querySelector(
-                ".report-header p"
-            );
+            document.querySelector(".report-header p");
 
         if (reportDescription) {
 
             reportDescription.textContent =
                 `Interview performance report for ${candidate.member.name}.`;
         }
+    }
+
+
+    // =====================================================
+    // SMART ANALYSIS BUTTON
+    // =====================================================
+
+    /*
+     * The Smart Analysis button already exists
+     * inside report.html.
+     *
+     * DO NOT create another button here.
+     */
+
+    const smartAnalysisBtn =
+        document.getElementById("smartAnalysisBtn");
+
+    if (smartAnalysisBtn) {
+
+        smartAnalysisBtn.addEventListener(
+            "click",
+            () => {
+
+                console.log(
+                    "Opening Smart Analysis..."
+                );
+
+                window.location.href =
+                    "smartanalysis.html";
+            }
+        );
     }
 
 
@@ -107,37 +124,33 @@ document.addEventListener("DOMContentLoaded", () => {
         Number(feedback.overall_score);
 
     const scoreNumber =
-        document.querySelector(
-            ".score-number"
-        );
+        document.querySelector(".score-number");
 
     const scoreBadge =
-        document.querySelector(
-            ".small-badge"
-        );
+        document.querySelector(".small-badge");
 
     const scoreLabel =
-        document.querySelector(
-            ".score-card h2"
-        );
+        document.querySelector(".score-card h2");
 
     const scoreDescription =
-        document.querySelector(
-            ".score-content p"
-        );
+        document.querySelector(".score-content p");
 
 
     if (!Number.isNaN(score)) {
 
         if (scoreNumber) {
+
             scoreNumber.textContent =
                 `${score}%`;
         }
 
+
         if (scoreBadge) {
+
             scoreBadge.textContent =
                 `${score}% Overall`;
         }
+
 
         if (scoreLabel) {
 
@@ -162,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "Needs More Practice";
             }
         }
+
 
         if (scoreDescription) {
 
@@ -194,9 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================================================
 
     const statCards =
-        document.querySelectorAll(
-            ".stat-card"
-        );
+        document.querySelectorAll(".stat-card");
 
 
     // =====================================================
@@ -209,20 +221,18 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
         const value =
-            statCards[0].querySelector(
-                "strong"
-            );
+            statCards[0].querySelector("strong");
 
         const status =
-            statCards[0].querySelector(
-                "small"
-            );
+            statCards[0].querySelector("small");
+
 
         if (value) {
 
             value.textContent =
                 feedback.questions_answered;
         }
+
 
         if (status) {
 
@@ -239,29 +249,22 @@ document.addEventListener("DOMContentLoaded", () => {
     if (statCards.length > 1) {
 
         const value =
-            statCards[1].querySelector(
-                "strong"
-            );
+            statCards[1].querySelector("strong");
 
         const status =
-            statCards[1].querySelector(
-                "small"
-            );
+            statCards[1].querySelector("small");
+
 
         let averageAccuracy =
             feedback.average_accuracy;
 
 
-        /*
-         * Fallback for old interview data.
-         */
         if (
             averageAccuracy === undefined ||
             averageAccuracy === null
         ) {
 
-            averageAccuracy =
-                score;
+            averageAccuracy = score;
         }
 
 
@@ -276,6 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 value.textContent =
                     `${averageAccuracy.toFixed(1)}%`;
             }
+
 
             if (status) {
 
@@ -308,7 +312,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             if (status) {
-
                 status.textContent =
                     "Accuracy unavailable";
             }
@@ -323,14 +326,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (statCards.length > 2) {
 
         const value =
-            statCards[2].querySelector(
-                "strong"
-            );
+            statCards[2].querySelector("strong");
 
         const status =
-            statCards[2].querySelector(
-                "small"
-            );
+            statCards[2].querySelector("small");
 
 
         if (
@@ -365,6 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             Math.round(
                                 avgResponseTime % 60
                             );
+
 
                         if (seconds === 60) {
 
@@ -406,7 +406,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 if (status) {
-
                     status.textContent =
                         "Response time unavailable";
                 }
@@ -419,7 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             if (status) {
-
                 status.textContent =
                     "Response time unavailable";
             }
@@ -434,14 +432,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (statCards.length > 3) {
 
         const value =
-            statCards[3].querySelector(
-                "strong"
-            );
+            statCards[3].querySelector("strong");
 
         const status =
-            statCards[3].querySelector(
-                "small"
-            );
+            statCards[3].querySelector("small");
 
 
         if (durationData) {
@@ -461,7 +455,9 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
 
             if (value) {
-                value.textContent = "N/A";
+
+                value.textContent =
+                    "N/A";
             }
 
             if (status) {
@@ -478,9 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================================================
 
     const summaryPanel =
-        document.querySelector(
-            ".summary-panel"
-        );
+        document.querySelector(".summary-panel");
 
 
     if (
@@ -489,22 +483,16 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
 
         const summaryItem =
-            summaryPanel.querySelector(
-                ".summary-item"
-            );
+            summaryPanel.querySelector(".summary-item");
 
 
         if (summaryItem) {
 
             const title =
-                summaryItem.querySelector(
-                    "strong"
-                );
+                summaryItem.querySelector("strong");
 
             const paragraph =
-                summaryItem.querySelector(
-                    "p"
-                );
+                summaryItem.querySelector("p");
 
 
             if (title) {
@@ -520,22 +508,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     feedback.summary;
             }
         }
-
-
-        const summaryItems =
-            summaryPanel.querySelectorAll(
-                ".summary-item"
-            );
-
-
-        summaryItems.forEach(
-            (item, index) => {
-
-                if (index > 0) {
-                    item.remove();
-                }
-            }
-        );
     }
 
 
@@ -546,27 +518,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (feedback.skills) {
 
         const skillRows =
-            document.querySelectorAll(
-                ".skill-row"
-            );
+            document.querySelectorAll(".skill-row");
 
 
         skillRows.forEach(row => {
 
             const label =
-                row.querySelector(
-                    ".skill-info span"
-                );
+                row.querySelector(".skill-info span");
 
             const scoreElement =
-                row.querySelector(
-                    ".skill-info strong"
-                );
+                row.querySelector(".skill-info strong");
 
             const fill =
-                row.querySelector(
-                    ".skill-fill"
-                );
+                row.querySelector(".skill-fill");
 
 
             if (!label) {
@@ -618,7 +582,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 value !== undefined
             ) {
 
-                value = Number(value);
+                value =
+                    Number(value);
 
 
                 if (scoreElement) {
@@ -664,9 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================================================
 
     const topicGrid =
-        document.querySelector(
-            ".topic-grid"
-        );
+        document.querySelector(".topic-grid");
 
 
     if (topicGrid) {
@@ -679,70 +642,65 @@ document.addEventListener("DOMContentLoaded", () => {
             feedback.topics.length > 0
         ) {
 
-            feedback.topics.forEach(
-                topic => {
+            feedback.topics.forEach(topic => {
 
-                    const topicCard =
-                        document.createElement(
-                            "div"
-                        );
-
-                    topicCard.className =
-                        "topic-card";
+                const topicCard =
+                    document.createElement("div");
 
 
-                    const topicScore =
-                        Number(topic.score) || 0;
+                topicCard.className =
+                    "topic-card";
 
 
-                    if (topicScore < 60) {
-
-                        topicCard.classList.add(
-                            "weak"
-                        );
-                    }
+                const topicScore =
+                    Number(topic.score) || 0;
 
 
-                    const comment =
-                        topic.comment ||
-                        "Performance recorded.";
+                if (topicScore < 60) {
 
-
-                    topicCard.innerHTML = `
-
-                        <div class="topic-top">
-
-                            <span>
-                                ${topic.topic}
-                            </span>
-
-                            <strong>
-                                ${topicScore}%
-                            </strong>
-
-                        </div>
-
-                        <div class="topic-track">
-
-                            <div
-                                class="topic-fill"
-                                style="width:${topicScore}%"
-                            ></div>
-
-                        </div>
-
-                        <small>
-                            ${comment}
-                        </small>
-
-                    `;
-
-
-                    topicGrid.appendChild(
-                        topicCard
-                    );
+                    topicCard.classList.add("weak");
                 }
-            );
+
+
+                const comment =
+                    topic.comment ||
+                    "Performance recorded.";
+
+
+                topicCard.innerHTML = `
+
+                    <div class="topic-top">
+
+                        <span>
+                            ${topic.topic}
+                        </span>
+
+                        <strong>
+                            ${topicScore}%
+                        </strong>
+
+                    </div>
+
+                    <div class="topic-track">
+
+                        <div
+                            class="topic-fill"
+                            style="width:${topicScore}%"
+                        ></div>
+
+                    </div>
+
+                    <small>
+                        ${comment}
+                    </small>
+
+                `;
+
+
+                topicGrid.appendChild(
+                    topicCard
+                );
+            });
 
         } else {
 
@@ -799,9 +757,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 strength => {
 
                     const item =
-                        document.createElement(
-                            "div"
-                        );
+                        document.createElement("div");
 
 
                     item.innerHTML = `
@@ -810,9 +766,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
 
 
-                    bulletList.appendChild(
-                        item
-                    );
+                    bulletList.appendChild(item);
                 }
             );
         }
@@ -849,9 +803,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 gap => {
 
                     const item =
-                        document.createElement(
-                            "div"
-                        );
+                        document.createElement("div");
 
 
                     item.innerHTML = `
@@ -860,9 +812,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
 
 
-                    bulletList.appendChild(
-                        item
-                    );
+                    bulletList.appendChild(item);
                 }
             );
         }
@@ -874,9 +824,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =====================================================
 
     const revisionList =
-        document.querySelector(
-            ".revision-list"
-        );
+        document.querySelector(".revision-list");
 
 
     if (
@@ -891,9 +839,7 @@ document.addEventListener("DOMContentLoaded", () => {
             (step, index) => {
 
                 const item =
-                    document.createElement(
-                        "div"
-                    );
+                    document.createElement("div");
 
 
                 item.className =
@@ -903,8 +849,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.innerHTML = `
 
                     <div class="number">
-                        ${String(index + 1)
-                            .padStart(2, "0")}
+                        ${String(index + 1).padStart(2, "0")}
                     </div>
 
                     <div>
@@ -926,183 +871,136 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
 
 
-                revisionList.appendChild(
-                    item
-                );
+                revisionList.appendChild(item);
             }
         );
     }
 
+
     // =====================================================
-// NEW INTERVIEW
-// =====================================================
+    // NEW INTERVIEW
+    // =====================================================
 
-const newInterviewBtn =
-    document.getElementById(
-        "newInterviewBtn"
-    );
+    const newInterviewBtn =
+        document.getElementById(
+            "newInterviewBtn"
+        );
 
-const newInterviewTop =
-    document.getElementById(
-        "newInterviewTop"
-    );
-
-
-function startNewInterview() {
-
-    console.log(
-        "Starting another interview..."
-    );
-
-
-    // =================================================
-    // GET CURRENT CANDIDATE
-    // =================================================
-
-    let candidateId =
-        sessionStorage.getItem(
-            "selectedCandidateId"
+    const newInterviewTop =
+        document.getElementById(
+            "newInterviewTop"
         );
 
 
-    /*
-     * Fallback:
-     * If selectedCandidateId somehow isn't available,
-     * recover it from the stored candidate object.
-     */
+    function startNewInterview() {
 
-    if (!candidateId) {
+        console.log(
+            "Starting another interview..."
+        );
 
-        const candidateData =
+
+        let candidateId =
             sessionStorage.getItem(
-                "interviewCandidate"
+                "selectedCandidateId"
             );
 
 
-        if (candidateData) {
+        if (!candidateId) {
 
-            try {
-
-                const candidate =
-                    JSON.parse(
-                        candidateData
-                    );
-
-
-                candidateId =
-                    candidate?.member?.id ||
-                    null;
-
-            } catch (error) {
-
-                console.error(
-                    "Could not recover candidate:",
-                    error
+            const candidateData =
+                sessionStorage.getItem(
+                    "interviewCandidate"
                 );
+
+
+            if (candidateData) {
+
+                try {
+
+                    const candidate =
+                        JSON.parse(candidateData);
+
+
+                    candidateId =
+                        candidate?.member?.id ||
+                        null;
+
+                } catch (error) {
+
+                    console.error(
+                        "Could not recover candidate:",
+                        error
+                    );
+                }
             }
+        }
+
+
+        // Clear previous interview data
+
+        sessionStorage.removeItem(
+            "interviewFeedback"
+        );
+
+        sessionStorage.removeItem(
+            "interviewDuration"
+        );
+
+        sessionStorage.removeItem(
+            "interviewAvgResponseTime"
+        );
+
+        sessionStorage.removeItem(
+            "interviewResponseTimes"
+        );
+
+        sessionStorage.removeItem(
+            "interviewHistory"
+        );
+
+        sessionStorage.removeItem(
+            "interviewSessionId"
+        );
+
+
+        // Keep candidate
+
+        if (candidateId) {
+
+            sessionStorage.setItem(
+                "selectedCandidateId",
+                candidateId
+            );
+
+
+            window.location.href =
+                `interview.html?candidate=${encodeURIComponent(candidateId)}`;
+
+        } else {
+
+            window.location.href =
+                "../candidate.html";
         }
     }
 
 
-    // =================================================
-    // CLEAR ONLY PREVIOUS INTERVIEW DATA
-    // =================================================
+    if (newInterviewBtn) {
 
-    sessionStorage.removeItem(
-        "interviewFeedback"
-    );
-
-    sessionStorage.removeItem(
-        "interviewDuration"
-    );
-
-    sessionStorage.removeItem(
-        "interviewAvgResponseTime"
-    );
-
-    sessionStorage.removeItem(
-        "interviewResponseTimes"
-    );
-
-
-    /*
-     * VERY IMPORTANT:
-     *
-     * Delete the old session ID.
-     *
-     * interview.js will automatically create
-     * a completely new session ID.
-     */
-
-    sessionStorage.removeItem(
-        "interviewSessionId"
-    );
-
-
-    // =================================================
-    // KEEP CANDIDATE
-    // =================================================
-
-    if (candidateId) {
-
-        sessionStorage.setItem(
-            "selectedCandidateId",
-            candidateId
+        newInterviewBtn.addEventListener(
+            "click",
+            startNewInterview
         );
-
-
-        console.log(
-            "Keeping candidate:",
-            candidateId
-        );
-
-
-        /*
-         * Start another interview directly.
-         *
-         * NO candidate selection page.
-         */
-
-        window.location.href =
-            `interview.html?candidate=${encodeURIComponent(candidateId)}`;
-
-    } else {
-
-        /*
-         * This is only a safety fallback.
-         *
-         * If there genuinely is no selected candidate,
-         * THEN we ask the user to select one.
-         */
-
-        console.warn(
-            "No candidate found. Returning to candidate selection."
-        );
-
-
-        window.location.href =
-            "../candidate.html";
     }
-}
 
 
-if (newInterviewBtn) {
+    if (newInterviewTop) {
 
-    newInterviewBtn.addEventListener(
-        "click",
-        startNewInterview
-    );
-}
+        newInterviewTop.addEventListener(
+            "click",
+            startNewInterview
+        );
+    }
 
-
-if (newInterviewTop) {
-
-    newInterviewTop.addEventListener(
-        "click",
-        startNewInterview
-    );
-}
-    
 
     // =====================================================
     // BACK BUTTON
@@ -1132,10 +1030,6 @@ if (newInterviewTop) {
 // NO REPORT MESSAGE
 // =========================================================
 
-// =========================================================
-// NO REPORT MESSAGE
-// =========================================================
-
 function showNoReportMessage() {
 
     const mainContent =
@@ -1143,9 +1037,11 @@ function showNoReportMessage() {
             ".main-content"
         );
 
+
     if (!mainContent) {
         return;
     }
+
 
     mainContent.innerHTML = `
 
@@ -1219,10 +1115,12 @@ function showNoReportMessage() {
 
     `;
 
+
     const startButton =
         document.getElementById(
             "startInterviewFromReport"
         );
+
 
     if (startButton) {
 
@@ -1230,23 +1128,11 @@ function showNoReportMessage() {
             "click",
             () => {
 
-                console.log(
-                    "Starting interview from empty report..."
-                );
-
-                // =================================================
-                // GET CURRENTLY SELECTED CANDIDATE
-                // =================================================
-
                 let candidateId =
                     sessionStorage.getItem(
                         "selectedCandidateId"
                     );
 
-
-                // =================================================
-                // FALLBACK: RECOVER FROM CANDIDATE OBJECT
-                // =================================================
 
                 if (!candidateId) {
 
@@ -1255,14 +1141,14 @@ function showNoReportMessage() {
                             "interviewCandidate"
                         );
 
+
                     if (candidateData) {
 
                         try {
 
                             const candidate =
-                                JSON.parse(
-                                    candidateData
-                                );
+                                JSON.parse(candidateData);
+
 
                             candidateId =
                                 candidate?.member?.id ||
@@ -1279,19 +1165,7 @@ function showNoReportMessage() {
                 }
 
 
-                // =================================================
-                // CANDIDATE FOUND
-                // =================================================
-
                 if (candidateId) {
-
-                    console.log(
-                        "Recovered candidate:",
-                        candidateId
-                    );
-
-
-                    // Clear ONLY previous interview data
 
                     sessionStorage.removeItem(
                         "interviewSessionId"
@@ -1313,8 +1187,10 @@ function showNoReportMessage() {
                         "interviewResponseTimes"
                     );
 
+                    sessionStorage.removeItem(
+                        "interviewHistory"
+                    );
 
-                    // Keep selected candidate
 
                     sessionStorage.setItem(
                         "selectedCandidateId",
@@ -1322,24 +1198,14 @@ function showNoReportMessage() {
                     );
 
 
-                    // Start interview directly
-
                     window.location.href =
                         `interview.html?candidate=${encodeURIComponent(candidateId)}`;
 
                 } else {
 
-                    // No candidate has been selected
-                    // during this browser session.
-
-                    console.warn(
-                        "No selected candidate found."
-                    );
-
                     window.location.href =
                         "../candidate.html";
                 }
-
             }
         );
     }

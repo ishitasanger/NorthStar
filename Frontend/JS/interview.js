@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         urlCandidateId ||
         storedCandidateId;
 
+
     console.log(
         "Candidate ID:",
         candidateId
@@ -107,15 +108,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // SESSION
     // =====================================================
 
-    /*
-     * Each interview has its own session ID.
-     *
-     * The session is also linked to the candidate.
-     *
-     * If the user changes candidates, the old session
-     * will NOT be reused.
-     */
-
     let sessionId =
         sessionStorage.getItem(
             "interviewSessionId"
@@ -131,14 +123,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         interviewSessionCandidateId &&
         interviewSessionCandidateId !== candidateId;
 
-
-    /*
-     * Create a new session if:
-     *
-     * 1. There is no existing session
-     * OR
-     * 2. Existing session belongs to another candidate
-     */
 
     if (
         !sessionId ||
@@ -182,6 +166,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
         sessionStorage.removeItem(
+            "interviewHistory"
+        );
+
+        sessionStorage.removeItem(
             "interviewDuration"
         );
 
@@ -210,7 +198,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             "interviewSessionId",
             sessionId
         );
-
 
         sessionStorage.setItem(
             "interviewSessionCandidateId",
@@ -545,11 +532,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
 
-        /*
-         * Explicitly associate this session
-         * with the current candidate.
-         */
-
         sessionStorage.setItem(
             "interviewSessionCandidateId",
             candidateId
@@ -718,8 +700,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     // =====================================================
 
     function saveInterviewData(
-        feedback
+        feedback,
+        interviewHistory
     ) {
+
+        // =============================================
+        // SAVE FEEDBACK
+        // =============================================
 
         if (feedback) {
 
@@ -731,6 +718,35 @@ document.addEventListener("DOMContentLoaded", async () => {
             );
         }
 
+
+        // =============================================
+        // SAVE INTERVIEW HISTORY
+        //
+        // This is NEW.
+        //
+        // It allows Smart Analysis to work AFTER
+        // the backend session has been deleted.
+        // =============================================
+
+        if (interviewHistory) {
+
+            sessionStorage.setItem(
+                "interviewHistory",
+                JSON.stringify(
+                    interviewHistory
+                )
+            );
+
+            console.log(
+                "Interview history saved for Smart Analysis:",
+                interviewHistory
+            );
+        }
+
+
+        // =============================================
+        // SAVE CANDIDATE
+        // =============================================
 
         sessionStorage.setItem(
             "interviewCandidate",
@@ -752,11 +768,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
 
+        // =============================================
+        // SAVE DURATION
+        // =============================================
+
         sessionStorage.setItem(
             "interviewDuration",
             timerElement.textContent
         );
 
+
+        // =============================================
+        // SAVE RESPONSE TIME
+        // =============================================
 
         const averageResponseTime =
             getAverageResponseTime();
@@ -890,7 +914,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
                     saveInterviewData(
-                        result.feedback
+                        result.feedback,
+                        result.interview_history
                     );
 
 
@@ -1066,8 +1091,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 );
 
 
+                // =============================================
+                // SAVE BOTH FEEDBACK + INTERVIEW HISTORY
+                // =============================================
+
                 saveInterviewData(
-                    result.feedback
+                    result.feedback,
+                    result.interview_history
                 );
 
 

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Interviewer | Smart Analysis</title>
+
+    <link
+        rel="stylesheet"
+        href="../CSS/smartanalysis.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         BACKGROUND
+    ================================================== -->
+
+    <div class="background"></div>
+
+    <div class="gradient-orb orb-one"></div>
+
+    <div class="gradient-orb orb-two"></div>
+
+    <div class="gradient-orb orb-three"></div>
+
+
+    <!-- FLOATING PARTICLES -->
+
+    <div class="particles">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+
+    <!-- =================================================
+         APP SHELL
+    ================================================== -->
+
+    <div class="app-shell">
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- BRAND -->
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <h2>
+                        AI Interviewer
+                    </h2>
+
+                    <span>
+                        Interview Intelligence
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="sidebar-nav">
+
+
+                <a
+                    href="../index.html"
+                    class="nav-item"
+                >
+
+                    <div class="nav-icon">
+                        ⌂
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Dashboard
+                        </strong>
+
+                        <small>
+                            Overview & insights
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="interview.html"
+                    class="nav-item"
+                >
+
+                    <div class="nav-icon">
+                        ◉
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Interview Mode
+                        </strong>
+
+                        <small>
+                            Start a new interview
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="report.html"
+                    class="nav-item"
+                >
+
+                    <div class="nav-icon">
+                        ◈
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Performance Report
+                        </strong>
+
+                        <small>
+                            Review your interview
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="smartanalysis.html"
+                    class="nav-item active"
+                >
+
+                    <div class="nav-icon">
+                        ✦
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Smart Analysis
+                        </strong>
+
+                        <small>
+                            Deep answer analysis
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+                <a
+                    href="../candidate.html"
+                    class="nav-item"
+                >
+
+                    <div class="nav-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Select Candidate
+                        </strong>
+
+                        <small>
+                            Choose a candidate
+                        </small>
+
+                    </div>
+
+                </a>
+
+
+            </nav>
+
+
+            <!-- =================================================
+                 SIDEBAR CARD
+            ================================================== -->
+
+            <div class="sidebar-card">
+
+                <div class="eyebrow">
+                    ANALYZE. LEARN. IMPROVE.
+                </div>
+
+                <h3>
+                    Understand every answer.
+                </h3>
+
+                <p>
+                    See what you missed, what you did well,
+                    and how to give stronger interview answers.
+                </p>
+
+            </div>
+
+
+            <!-- BACK TO REPORT -->
+
+            <button
+                class="new-interview-btn"
+                id="backToReport"
+            >
+
+                ← Back to Report
+
+            </button>
+
+
+        </aside>
+
+
+        <!-- =================================================
+             MAIN CONTENT
+        ================================================== -->
+
+        <main class="main-content">
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="analysis-header">
+
+
+                <div>
+
+                    <div class="page-label">
+                        ✦ AI-POWERED REVIEW
+                    </div>
+
+
+                    <h1>
+                        Smart Analysis
+                    </h1>
+
+
+                    <p id="analysisDescription">
+                        Deep analysis of your actual interview answers.
+                        Discover what you missed, what you got right,
+                        and how to answer more confidently.
+                    </p>
+
+                </div>
+
+
+                <div class="header-actions">
+
+                    <button
+                        class="secondary-btn"
+                        id="backBtn"
+                    >
+
+                        ← Back to Report
+
+                    </button>
+
+                </div>
+
+
+            </header>
+
+
+            <!-- =================================================
+                 LOADING
+            ================================================== -->
+
+            <section
+                id="loadingSection"
+                class="panel loading-panel"
+            >
+
+                <div class="loading-content">
+
+                    <div class="loader"></div>
+
+                    <h2>
+                        Analyzing your interview...
+                    </h2>
+
+                    <p>
+                        The AI is reviewing your actual answers,
+                        identifying missing concepts and suggesting
+                        stronger interview-ready responses.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ERROR
+            ================================================== -->
+
+            <section
+                id="errorSection"
+                class="panel error-panel"
+                style="display:none;"
+            >
+
+                <div class="error-icon">
+                    ⚠
+                </div>
+
+                <h2>
+                    Unable to generate analysis
+                </h2>
+
+                <p id="errorMessage">
+                    Something went wrong.
+                </p>
+
+                <button
+                    class="primary-btn"
+                    id="retryBtn"
+                >
+
+                    ↻ Try Again
+
+                </button>
+
+            </section>
+
+
+            <!-- =================================================
+                 ANALYSIS
+            ================================================== -->
+
+            <section
+                id="analysisSection"
+                style="display:none;"
+            >
+
+                <div
+                    id="analysisContainer"
+                    class="analysis-container"
+                ></div>
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script src="../JS/smartanalysis.js"></script>
+
+
+</body>
+
+</html>

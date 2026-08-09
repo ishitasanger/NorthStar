@@ -25,291 +25,613 @@
 
     <!-- ================= BACKGROUND ================= -->
 
-    <div class="background">
+    <div class="gradient-orb orb-one"></div>
+    <div class="gradient-orb orb-two"></div>
+    <div class="gradient-orb orb-three"></div>
 
-        <div class="gradient-orb orb-one"></div>
-        <div class="gradient-orb orb-two"></div>
-        <div class="gradient-orb orb-three"></div>
+    <div class="particles">
 
-        <div class="particles">
-
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </div>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
 
     </div>
 
 
-    <!-- ================= APP ================= -->
+    <!-- ================= SIDEBAR ================= -->
 
-    <div class="app-shell">
-
-
-        <!-- ================= SIDEBAR ================= -->
-
-        <aside class="sidebar">
+    <aside class="sidebar">
 
 
-            <!-- BRAND -->
+        <!-- BRAND -->
 
-            <div class="brand">
+        <div class="brand">
 
-                <div class="brand-icon">
+            <div class="brand-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <h2>
+                    AI Interviewer
+                </h2>
+
+                <span>
+                    Interview Intelligence
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="../index.html"
+                class="nav-item"
+            >
+
+                <div class="nav-icon">
+                    ⌂
+                </div>
+
+                <div>
+
+                    <strong>
+                        Dashboard
+                    </strong>
+
+                    <small>
+                        Overview & insights
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- INTERVIEW -->
+
+            <a
+                href="interview.html"
+                class="nav-item"
+            >
+
+                <div class="nav-icon">
+                    ◉
+                </div>
+
+                <div>
+
+                    <strong>
+                        Interview Mode
+                    </strong>
+
+                    <small>
+                        Start a new interview
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- REPORT -->
+
+            <a
+                href="report.html"
+                class="nav-item active"
+            >
+
+                <div class="nav-icon">
+                    ◈
+                </div>
+
+                <div>
+
+                    <strong>
+                        Performance Report
+                    </strong>
+
+                    <small>
+                        Review your interview
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- SMART ANALYSIS -->
+
+            <a
+                href="smartanalysis.html"
+                class="nav-item"
+            >
+
+                <div class="nav-icon">
                     ✦
                 </div>
 
                 <div>
 
-                    <h2>
-                        AI Interviewer
-                    </h2>
+                    <strong>
+                        Smart Analysis
+                    </strong>
 
-                    <span>
-                        Interview Intelligence
-                    </span>
+                    <small>
+                        AI-powered insights
+                    </small>
 
                 </div>
 
+            </a>
+
+
+            <!-- SELECT CANDIDATE -->
+
+            <a
+                href="../candidate.html"
+                class="nav-item"
+            >
+
+                <div class="nav-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong>
+                        Select Candidate
+                    </strong>
+
+                    <small>
+                        Choose a candidate
+                    </small>
+
+                </div>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR CARD -->
+
+        <div class="sidebar-card">
+
+            <div class="eyebrow">
+                REVIEW. REFLECT. IMPROVE.
             </div>
 
+            <h3>
+                Keep improving.
+            </h3>
 
-            <!-- NAVIGATION -->
+            <p>
+                Use your interview insights to
+                strengthen your technical skills.
+            </p>
 
-            <nav class="sidebar-nav">
-
-
-                <a
-                    href="../index.html"
-                    class="nav-item"
-                >
-
-                    <div class="nav-icon">
-                        ⌂
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Dashboard
-                        </strong>
-
-                        <small>
-                            Overview & insights
-                        </small>
-
-                    </div>
-
-                </a>
+        </div>
 
 
-                <a
-                    href="interview.html"
-                    class="nav-item"
-                >
+        <!-- NEW INTERVIEW -->
 
-                    <div class="nav-icon">
-                        ◉
-                    </div>
+        <button
+            class="new-interview-btn"
+            id="newInterviewBtn"
+        >
 
-                    <div>
+            + New Interview
 
-                        <strong>
-                            Interview Mode
-                        </strong>
-
-                        <small>
-                            Start a new interview
-                        </small>
-
-                    </div>
-
-                </a>
+        </button>
 
 
-                <a
-                    href="report.html"
-                    class="nav-item active"
-                >
-
-                    <div class="nav-icon">
-                        ◈
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Performance Report
-                        </strong>
-
-                        <small>
-                            Review your interview
-                        </small>
-
-                    </div>
-
-                </a>
+    </aside>
 
 
-                <!-- SELECT CANDIDATE -->
+    <!-- ================= MAIN ================= -->
 
-                <a
-                    href="../candidate.html"
-                    class="nav-item"
-                >
-
-                    <div class="nav-icon">
-                        👤
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Select Candidate
-                        </strong>
-
-                        <small>
-                            Choose a candidate
-                        </small>
-
-                    </div>
-
-                </a>
+    <main class="main-content">
 
 
-            </nav>
+        <!-- ================= HEADER ================= -->
+
+        <header class="report-header">
 
 
-            <!-- SIDEBAR CARD -->
+            <div>
 
-            <div class="sidebar-card">
-
-                <div class="eyebrow">
-                    REVIEW. REFLECT. IMPROVE.
+                <div class="page-label">
+                    ✦ INTERVIEW REPORT
                 </div>
 
-                <h3>
-                    Keep improving.
-                </h3>
+
+                <h1>
+                    Performance Report
+                </h1>
+
 
                 <p>
-                    Use your interview insights to
-                    strengthen your technical skills.
+                    Here's how you performed and
+                    where you can improve.
                 </p>
 
             </div>
 
 
-            <!-- NEW INTERVIEW -->
-
-            <button
-                class="new-interview-btn"
-                id="newInterviewBtn"
-            >
-
-                + New Interview
-
-            </button>
+            <div class="header-actions">
 
 
-        </aside>
+                <!-- BACK -->
+
+                <button
+                    class="secondary-btn"
+                    id="backBtn"
+                >
+
+                    ← Back
+
+                </button>
 
 
-        <!-- ================= MAIN ================= -->
+                <!-- SMART ANALYSIS -->
 
-        <main class="main-content">
+                <button
+                    class="primary-btn"
+                    id="smartAnalysisBtn"
+                >
+
+                    ✦ Smart Analysis
+
+                </button>
 
 
-            <!-- ================= HEADER ================= -->
+                <!-- NEW INTERVIEW -->
 
-            <header class="report-header">
+                <button
+                    class="primary-btn"
+                    id="newInterviewTop"
+                >
+
+                    + New Interview
+
+                </button>
 
 
-                <div>
+            </div>
 
-                    <div class="page-label">
-                        ✦ INTERVIEW REPORT
+
+        </header>
+
+
+        <!-- ================= OVERVIEW ================= -->
+
+        <section class="overview-grid">
+
+
+            <!-- SCORE -->
+
+            <div class="score-card">
+
+                <div class="score-glow"></div>
+
+                <div class="score-content">
+
+                    <span class="score-label">
+                        OVERALL RESULT
+                    </span>
+
+                    <div class="score-icon">
+                        ✦
                     </div>
 
+                    <h2>
+                        —
+                    </h2>
 
-                    <h1>
-                        Performance Report
-                    </h1>
-
+                    <div class="score-number">
+                        —
+                    </div>
 
                     <p>
-                        Here's how you performed and
-                        where you can improve.
+                        —
                     </p>
 
                 </div>
 
-
-                <div class="header-actions">
-
-
-                    <button
-                        class="secondary-btn"
-                        id="backBtn"
-                    >
-
-                        ← Back
-
-                    </button>
+            </div>
 
 
-                    <button
-                        class="primary-btn"
-                        id="newInterviewTop"
-                    >
+            <!-- STATS -->
 
-                        + New Interview
+            <div class="stats-grid">
 
-                    </button>
 
+                <!-- QUESTIONS ANSWERED -->
+
+                <div class="stat-card">
+
+                    <span>
+                        Questions Answered
+                    </span>
+
+                    <strong>
+                        —
+                    </strong>
+
+                    <small class="positive">
+                        —
+                    </small>
 
                 </div>
 
 
-            </header>
+                <!-- AVERAGE ACCURACY -->
+
+                <div class="stat-card">
+
+                    <span>
+                        Average Accuracy
+                    </span>
+
+                    <strong>
+                        —
+                    </strong>
+
+                    <small class="positive">
+                        —
+                    </small>
+
+                </div>
 
 
-            <!-- ================= OVERVIEW ================= -->
+                <!-- AVERAGE RESPONSE TIME -->
 
-            <section class="overview-grid">
+                <div class="stat-card">
+
+                    <span>
+                        Avg. Response Time
+                    </span>
+
+                    <strong>
+                        —
+                    </strong>
+
+                    <small>
+                        —
+                    </small>
+
+                </div>
 
 
-                <!-- SCORE -->
+                <!-- INTERVIEW DURATION -->
 
-                <div class="score-card">
+                <div class="stat-card">
 
-                    <div class="score-glow"></div>
+                    <span>
+                        Interview Duration
+                    </span>
 
-                    <div class="score-content">
+                    <strong>
+                        —
+                    </strong>
 
-                        <span class="score-label">
-                            OVERALL RESULT
+                    <small>
+                        —
+                    </small>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SKILLS ================= -->
+
+        <section class="content-grid">
+
+
+            <!-- TECHNICAL SKILLS -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span>
+                            SKILL BREAKDOWN
                         </span>
 
-                        <div class="score-icon">
-                            ✦
-                        </div>
-
                         <h2>
-                            —
+                            Technical Performance
                         </h2>
 
-                        <div class="score-number">
-                            —
+                    </div>
+
+
+                    <div class="small-badge">
+                        —
+                    </div>
+
+                </div>
+
+
+                <div class="skill-list">
+
+
+                    <!-- TECHNICAL -->
+
+                    <div class="skill-row">
+
+                        <div class="skill-info">
+
+                            <span>
+                                Technical Skills
+                            </span>
+
+                            <strong>
+                                —
+                            </strong>
+
                         </div>
+
+
+                        <div class="skill-track">
+
+                            <div
+                                class="skill-fill purple"
+                                style="width:0%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- COMMUNICATION -->
+
+                    <div class="skill-row">
+
+                        <div class="skill-info">
+
+                            <span>
+                                Communication
+                            </span>
+
+                            <strong>
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="skill-track">
+
+                            <div
+                                class="skill-fill pink"
+                                style="width:0%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PROBLEM SOLVING -->
+
+                    <div class="skill-row">
+
+                        <div class="skill-info">
+
+                            <span>
+                                Problem Solving
+                            </span>
+
+                            <strong>
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="skill-track">
+
+                            <div
+                                class="skill-fill cyan"
+                                style="width:0%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SYSTEM REASONING -->
+
+                    <div class="skill-row">
+
+                        <div class="skill-info">
+
+                            <span>
+                                System Reasoning
+                            </span>
+
+                            <strong>
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="skill-track">
+
+                            <div
+                                class="skill-fill violet"
+                                style="width:0%"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- QUICK SUMMARY -->
+
+            <div class="panel summary-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span>
+                            INTERVIEW INSIGHT
+                        </span>
+
+                        <h2>
+                            Quick Summary
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <div class="summary-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Overall Interview Assessment
+                        </strong>
 
                         <p>
                             —
@@ -320,301 +642,59 @@
                 </div>
 
 
-                <!-- STATS -->
-
-                <div class="stats-grid">
+            </div>
 
 
-                    <!-- QUESTIONS ANSWERED -->
-
-                    <div class="stat-card">
-
-                        <span>
-                            Questions Answered
-                        </span>
-
-                        <strong>
-                            —
-                        </strong>
-
-                        <small class="positive">
-                            —
-                        </small>
-
-                    </div>
+        </section>
 
 
-                    <!-- AVERAGE ACCURACY -->
+        <!-- ================= TOPICS ================= -->
 
-                    <div class="stat-card">
-
-                        <span>
-                            Average Accuracy
-                        </span>
-
-                        <strong>
-                            —
-                        </strong>
-
-                        <small class="positive">
-                            —
-                        </small>
-
-                    </div>
+        <section class="panel topic-panel">
 
 
-                    <!-- AVERAGE RESPONSE TIME -->
+            <div class="panel-header">
 
-                    <div class="stat-card">
+                <div>
 
-                        <span>
-                            Avg. Response Time
-                        </span>
+                    <span>
+                        TOPIC PERFORMANCE
+                    </span>
 
-                        <strong>
-                            —
-                        </strong>
-
-                        <small>
-                            —
-                        </small>
-
-                    </div>
-
-
-                    <!-- INTERVIEW DURATION -->
-
-                    <div class="stat-card">
-
-                        <span>
-                            Interview Duration
-                        </span>
-
-                        <strong>
-                            —
-                        </strong>
-
-                        <small>
-                            —
-                        </small>
-
-                    </div>
-
+                    <h2>
+                        How you performed by topic
+                    </h2>
 
                 </div>
 
-            </section>
+            </div>
 
 
-            <!-- ================= SKILLS ================= -->
+            <div class="topic-grid"></div>
 
-            <section class="content-grid">
 
+        </section>
 
-                <!-- TECHNICAL SKILLS -->
 
-                <div class="panel">
+        <!-- ================= STRENGTHS / GAPS ================= -->
 
-                    <div class="panel-header">
+        <section class="content-grid">
 
-                        <div>
 
-                            <span>
-                                SKILL BREAKDOWN
-                            </span>
+            <!-- STRENGTHS -->
 
-                            <h2>
-                                Technical Performance
-                            </h2>
-
-                        </div>
-
-
-                        <div class="small-badge">
-                            —
-                        </div>
-
-                    </div>
-
-
-                    <div class="skill-list">
-
-
-                        <div class="skill-row">
-
-                            <div class="skill-info">
-
-                                <span>
-                                    Technical Skills
-                                </span>
-
-                                <strong>
-                                    —
-                                </strong>
-
-                            </div>
-
-
-                            <div class="skill-track">
-
-                                <div
-                                    class="skill-fill purple"
-                                    style="width:0%"
-                                ></div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="skill-row">
-
-                            <div class="skill-info">
-
-                                <span>
-                                    Communication
-                                </span>
-
-                                <strong>
-                                    —
-                                </strong>
-
-                            </div>
-
-
-                            <div class="skill-track">
-
-                                <div
-                                    class="skill-fill pink"
-                                    style="width:0%"
-                                ></div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="skill-row">
-
-                            <div class="skill-info">
-
-                                <span>
-                                    Problem Solving
-                                </span>
-
-                                <strong>
-                                    —
-                                </strong>
-
-                            </div>
-
-
-                            <div class="skill-track">
-
-                                <div
-                                    class="skill-fill cyan"
-                                    style="width:0%"
-                                ></div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="skill-row">
-
-                            <div class="skill-info">
-
-                                <span>
-                                    System Reasoning
-                                </span>
-
-                                <strong>
-                                    —
-                                </strong>
-
-                            </div>
-
-
-                            <div class="skill-track">
-
-                                <div
-                                    class="skill-fill violet"
-                                    style="width:0%"
-                                ></div>
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-
-                <!-- QUICK SUMMARY -->
-
-                <div class="panel summary-panel">
-
-                    <div class="panel-header">
-
-                        <div>
-
-                            <span>
-                                INTERVIEW INSIGHT
-                            </span>
-
-                            <h2>
-                                Quick Summary
-                            </h2>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="summary-item">
-
-                        <div class="summary-icon green">
-                            ✓
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Overall Interview Assessment
-                            </strong>
-
-                            <p>
-                                —
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-            </section>
-
-
-            <!-- ================= TOPICS ================= -->
-
-            <section class="panel topic-panel">
-
+            <div class="panel">
 
                 <div class="panel-header">
 
                     <div>
 
-                        <span>
-                            TOPIC PERFORMANCE
+                        <span class="green-label">
+                            YOUR STRENGTHS
                         </span>
 
                         <h2>
-                            How you performed by topic
+                            What you did well
                         </h2>
 
                     </div>
@@ -622,115 +702,79 @@
                 </div>
 
 
-                <div class="topic-grid"></div>
+                <div class="bullet-list"></div>
+
+            </div>
 
 
-            </section>
+            <!-- GAPS -->
 
+            <div class="panel">
 
-            <!-- ================= STRENGTHS / GAPS ================= -->
-
-            <section class="content-grid">
-
-
-                <!-- STRENGTHS -->
-
-                <div class="panel">
-
-                    <div class="panel-header">
-
-                        <div>
-
-                            <span class="green-label">
-                                YOUR STRENGTHS
-                            </span>
-
-                            <h2>
-                                What you did well
-                            </h2>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="bullet-list"></div>
-
-                </div>
-
-
-                <!-- GAPS -->
-
-                <div class="panel">
-
-                    <div class="panel-header">
-
-                        <div>
-
-                            <span class="red-label">
-                                AREAS TO IMPROVE
-                            </span>
-
-                            <h2>
-                                Your learning gaps
-                            </h2>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="bullet-list gaps"></div>
-
-                </div>
-
-
-            </section>
-
-
-            <!-- ================= REVISION ================= -->
-
-            <section class="revision-card">
-
-
-                <div class="revision-header">
-
-
-                    <div class="revision-icon">
-                        ◈
-                    </div>
-
+                <div class="panel-header">
 
                     <div>
 
-                        <span>
-                            RECOMMENDED REVISION
+                        <span class="red-label">
+                            AREAS TO IMPROVE
                         </span>
 
                         <h2>
-                            Your next learning priorities
+                            Your learning gaps
                         </h2>
 
                     </div>
 
+                </div>
+
+
+                <div class="bullet-list gaps"></div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= REVISION ================= -->
+
+        <section class="revision-card">
+
+
+            <div class="revision-header">
+
+
+                <div class="revision-icon">
+                    ◈
+                </div>
+
+
+                <div>
+
+                    <span>
+                        RECOMMENDED REVISION
+                    </span>
+
+                    <h2>
+                        Your next learning priorities
+                    </h2>
 
                 </div>
 
 
-                <div class="revision-list"></div>
+            </div>
 
 
-            </section>
+            <div class="revision-list"></div>
 
 
-        </main>
+        </section>
 
 
-    </div>
+    </main>
 
 
     <script src="../JS/report.js"></script>
-
 
 </body>
 
