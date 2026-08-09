@@ -25,3 +25,20 @@ def generate_response(prompt: str) -> str:
     )
 
     return response.choices[0].message.content
+
+
+
+def generate_json_response(prompt: str) -> str:
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        response_format={"type": "json_object"},
+        temperature=0.3
+    )
+
+    return response.choices[0].message.content

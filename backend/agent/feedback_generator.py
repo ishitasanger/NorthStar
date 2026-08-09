@@ -1,6 +1,6 @@
 import json
 
-from llm import generate_response
+from llm import generate_json_response
 
 
 class FeedbackGenerator:
@@ -87,7 +87,7 @@ Important:
 - Make the report specific to this candidate.
 """
 
-        response = generate_response(prompt)
+        response = generate_json_response(prompt)
 
         # =====================================================
         # CLEAN LLM RESPONSE

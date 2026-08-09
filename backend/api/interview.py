@@ -9,7 +9,7 @@ from services.session_service import (
     remove_session
 )
 
-from llm import generate_response
+from llm import generate_response, generate_json_response
 
 
 router = APIRouter(
@@ -285,7 +285,7 @@ Use exactly:
 
     try:
 
-        first_response = generate_response(
+        first_response = generate_json_response(
             first_prompt
         )
 
@@ -329,15 +329,8 @@ Use exactly:
 
     except Exception as error:
 
-        print(
-            "Smart analysis first-pass JSON error:",
-            error
-        )
-
-        print(
-            "Raw first-pass response:",
-            first_response
-        )
+        print("Smart analysis first-pass JSON error:", error)
+        print("Raw first-pass response:", first_response)
 
         raise HTTPException(
             status_code=500,
@@ -505,7 +498,7 @@ Return:
 
     try:
 
-        second_response = generate_response(
+        second_response = generate_json_response(
             second_prompt
         )
 
