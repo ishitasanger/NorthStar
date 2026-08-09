@@ -261,10 +261,8 @@ Identifies topics where the candidate demonstrates strong understanding as well 
 
 * JSON-based Candidate Profiles
 * Curriculum Data
-* Retrieval-Augmented Generation (RAG)
-* Vector Databases
 * Agentic AI
-* Model Context Protocol (MCP)
+
 
 ---
 

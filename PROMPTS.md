@@ -1,3 +1,11 @@
+# AI Usage Log — The Interview Agent
+
+This file documents the AI-assisted development process used during the hackathon.
+
+The log contains prompts, requirements, debugging requests, and implementation guidance used while developing the project. Some entries are lightly cleaned for readability while preserving the original development intent.
+Where applicable, prompts are reproduced from the development conversation. Some entries have been lightly organized or cleaned for readability.
+
+
 ## ANNU'S PROMPTS
 
 > 1. Please go through this. My part is to make the frontend. I have attached how the pages should look like. I need to make an interactive frontend within 2 hours, and then the FastAPI connection with JS will be done by my teammate. I want good UI/UX design, dark mode, and an interactive SaaS look.
