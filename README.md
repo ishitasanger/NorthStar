@@ -4,9 +4,9 @@ An AI-powered technical interview platform designed to conduct personalized, ada
 
 ## Overview
 
-The AI Interview Agent goes beyond a traditional fixed question-and-answer format. It analyzes each candidate's response and dynamically determines what to ask next based on their understanding, performance, and learning context.
+The AI Interview Agent goes beyond a traditional fixed question-and-answer format. It analyzes each candidate's response and dynamically determines what to ask next based on their understanding, performance, current difficulty, and learning context.
 
-The system combines candidate profiles, curriculum data, completed topics, previous responses, and real-time answer analysis to create a personalized interview experience.
+The system combines candidate profiles, curriculum data, completed topics, previous responses, interview state, and real-time answer analysis to create a personalized interview experience.
 
 ### Core Interview Loop
 
@@ -14,66 +14,102 @@ The system combines candidate profiles, curriculum data, completed topics, previ
 
 Instead of following a predefined questionnaire, the interviewer continuously adapts to the candidate's responses, allowing different candidates to experience different interview paths.
 
-## Key Features
+---
 
-### Context-Aware Interviewer
+# Key Features
 
-Maintains context from previous questions and answers throughout the interview, enabling the AI to build on the candidate's responses and conduct a more natural technical conversation.
+## Context-Aware Interviewer
 
-### Adaptive Difficulty
+Maintains context from previous questions, answers, and evaluations throughout the interview. This enables the AI to build on the candidate's previous responses and conduct a more natural technical conversation.
+
+The interview state maintains relevant information such as:
+
+* Current question
+* Candidate response
+* Previous questions and answers
+* Evaluation history
+* Current topic
+* Current difficulty
+
+## Adaptive Difficulty
 
 Dynamically adjusts question difficulty based on the quality of the candidate's responses.
 
-- Strong answers → More challenging questions
-- Partial answers → Targeted follow-up questions
-- Weak answers → Conceptual or simplified questions
-- Knowledge gaps → Focused questions on weaker areas
+* **Strong answers** → More challenging questions
+* **Partial answers** → Targeted follow-up questions
+* **Weak answers** → Conceptual or simplified questions
+* **Knowledge gaps** → Focused questions on weaker areas
 
-### Personalized Interviews
+The current difficulty is maintained as a **difficulty parameter** within the interview flow and is updated according to candidate performance. This parameter is used when generating the next question so that the interview remains appropriately challenging.
 
-Uses candidate-specific information to make the interview relevant to their actual learning journey, including:
+## Personalized Interviews
 
-- Candidate profile
-- Curriculum
-- Completed topics
-- Learning progress
-- Previous interview responses
+Uses candidate-specific information to make the interview relevant to the candidate's actual learning journey, including:
 
-### Intelligent Follow-Ups
+* Candidate profile
+* Curriculum
+* Completed topics
+* Learning history
+* Previous interview responses
+
+## Intelligent Follow-Ups
 
 Generates follow-up questions based on what the candidate actually says rather than following a fixed question sequence.
 
 The system can identify:
 
-- Incomplete explanations
-- Missing concepts
-- Misconceptions
-- Areas requiring deeper evaluation
+* Incomplete explanations
+* Missing concepts
+* Misconceptions
+* Areas requiring deeper evaluation
 
-### Smart Analysis
+## Smart Analysis
 
-Analyzes candidate responses during the interview to understand their technical knowledge, reasoning, and communication.
+Provides detailed analysis of candidate responses and helps candidates understand how their answers could be improved.
 
-The analysis contributes to both the adaptive interview flow and the final performance evaluation.
+Smart Analysis includes:
 
-### Performance Report
+* Candidate response analysis
+* Missing Points
+* Ideal Answer
+* Additional Points
+* Question-by-question analysis
+* Actionable improvement feedback
 
-Generates a comprehensive post-interview report covering:
+### Missing Points
 
-- Technical performance
-- Communication skills
-- Problem-solving ability
-- Topic-wise performance
-- Strengths
-- Knowledge gaps
-- Areas for improvement
-- Recommended revision topics
+Identifies important concepts or points that the candidate failed to mention in their response.
 
-### Strong Answer Guidance
+### Ideal Answer
 
-Provides insight into the key concepts expected in a strong technical answer, helping candidates understand what they missed and how they can improve.
+Shows what a strong answer to the interview question could contain and provides a reference for comparison.
 
-## Interview Flow
+### Additional Points
+
+Highlights useful concepts, details, or explanations that could have strengthened the candidate's answer.
+
+## Performance Report
+
+Generates a comprehensive post-interview report based on the candidate's actual interview performance.
+
+The report can cover:
+
+* Technical performance
+* Communication skills
+* Problem-solving ability
+* Topic-wise performance
+* Strengths
+* Knowledge gaps
+* Areas for improvement
+* Recommended revision topics
+
+## Strong Answer Guidance
+
+Provides insight into the important concepts expected in a strong technical answer. This helps candidates understand what they covered, what they missed, and how they could improve their responses.
+
+---
+
+# Interview Flow
 
 ```text
 Candidate Selection
@@ -86,14 +122,22 @@ Candidate Answers
         ↓
 Response Analysis
         ↓
+Update Difficulty Parameter
+        ↓
 Adaptive Difficulty / Follow-up
         ↓
 Next Question
         ↓
-Performance Report
+Update Interview Context
+        ↓
+Repeat
+        ↓
+Performance Report / Smart Analysis
 ```
 
-## Adaptive Interview Approach
+---
+
+# Adaptive Interview Approach
 
 ```text
 Candidate Context
@@ -101,12 +145,14 @@ Candidate Context
 Previous Responses
        +
 Current Answer
+       +
+Current Difficulty
        ↓
 Response Analysis
        ↓
 Determine Understanding
        ↓
-Select Difficulty / Follow-up
+Update Difficulty / Select Follow-up
        ↓
 Generate Next Question
        ↓
@@ -115,71 +161,114 @@ Update Interview Context
 Repeat
 ```
 
-## Performance Evaluation
+The interview therefore does not require every candidate to follow the same sequence of questions. The next question is determined using the candidate's current performance and accumulated interview context.
+
+---
+
+# Frontend–Backend Integration
+
+The frontend communicates with the AI interviewer through JavaScript and FastAPI.
+
+The interview uses a **single interview endpoint** for the main interview communication rather than creating separate endpoints for every interview action.
+
+The frontend sends the required interview information, including the interview session and candidate response, along with the current difficulty parameter when required.
+
+```text
+JavaScript Frontend
+        ↓
+Session / Candidate Response
+        +
+Difficulty Parameter
+        ↓
+POST /api/interview
+        ↓
+FastAPI Backend
+        ↓
+Interview / AI Logic
+        ↓
+AI-Generated Response
+        ↓
+JavaScript Frontend
+        ↓
+Display Next Question
+```
+
+The session information allows the backend to maintain the interview state across multiple requests.
+
+---
+
+# Performance Evaluation
 
 The system evaluates the candidate across multiple dimensions.
 
-### Technical Knowledge
+## Technical Knowledge
 
-- Conceptual understanding
-- Correctness
-- Depth of knowledge
-- Ability to explain technical concepts
+* Conceptual understanding
+* Correctness
+* Depth of knowledge
+* Ability to explain technical concepts
 
-### Problem Solving
+## Problem Solving
 
-- Logical reasoning
-- Approach to technical problems
-- Ability to break down problems
-- Quality of the solution
+* Logical reasoning
+* Approach to technical problems
+* Ability to break down problems
+* Quality of the solution
 
-### Communication
+## Communication
 
-- Clarity of explanation
-- Structure of responses
-- Completeness
-- Ability to communicate technical concepts effectively
+* Clarity of explanation
+* Structure of responses
+* Completeness
+* Ability to communicate technical concepts effectively
 
-### Topic Performance
+## Topic Performance
 
 Identifies topics where the candidate demonstrates strong understanding as well as areas that require further revision.
 
-## Tech Stack
+---
 
-### Frontend
+# Tech Stack
 
-- HTML5
-- CSS3
-- JavaScript
-- Responsive UI
-- Modern SaaS-inspired interface
+## Frontend
 
-### Backend
+* HTML5
+* CSS3
+* JavaScript
+* Responsive UI
+* Modern SaaS-inspired interface
 
-- Python
-- FastAPI
-- REST APIs
+## Backend
 
-### AI & Interview Intelligence
+* Python
+* FastAPI
+* REST API
+* Single interview endpoint
+* Session-based interview state
 
-- Large Language Models (LLMs)
-- Prompt Engineering
-- Context-aware question generation
-- Adaptive difficulty
-- Intelligent follow-up generation
-- Candidate-specific evaluation
-- Response analysis
+## AI & Interview Intelligence
 
-### Data & AI Concepts
+* Large Language Models (LLMs)
+* Prompt Engineering
+* Context-aware question generation
+* Adaptive difficulty
+* Difficulty parameter/state management
+* Intelligent follow-up generation
+* Candidate-specific evaluation
+* Response analysis
 
-- JSON-based Candidate Profiles
-- Curriculum Data
-- Retrieval-Augmented Generation (RAG)
-- Vector Databases
-- Agentic AI
-- Model Context Protocol (MCP)
+## Data & AI Concepts
 
-## Project Architecture
+* JSON-based Candidate Profiles
+* Curriculum Data
+* Retrieval-Augmented Generation (RAG)
+* Vector Databases
+* Agentic AI
+* Model Context Protocol (MCP)
+
+---
+
+# Project Architecture
 
 ```text
                     Candidate
@@ -210,8 +299,8 @@ Identifies topics where the candidate demonstrates strong understanding as well 
               ┌─────────┴─────────┐
               │                   │
               ▼                   ▼
-        Difficulty              Follow-up
-        Adjustment              Generation
+       Difficulty              Follow-up
+       Adjustment              Generation
               │                   │
               └─────────┬─────────┘
                         ▼
@@ -220,64 +309,93 @@ Identifies topics where the candidate demonstrates strong understanding as well 
                         ▼
                 Interview History
                         │
+              ┌─────────┴─────────┐
+              │                   │
+              ▼                   ▼
+       Smart Analysis       Performance Report
+              │                   │
+              └─────────┬─────────┘
                         ▼
-               Performance Report
-
+                 Candidate Feedback
 ```
-## Core Design Principles
 
-### Personalization
+---
+
+# Core Design Principles
+
+## Personalization
 
 Questions are generated according to the candidate's profile and learning context.
 
-### Adaptability
+## Adaptability
 
 The difficulty and direction of the interview can change based on candidate performance.
 
-### Context Preservation
+## Context Preservation
 
-Previous questions and answers are retained to maintain continuity throughout the interview.
+Previous questions, answers, evaluations, and interview state are retained to maintain continuity throughout the interview.
 
-### Targeted Evaluation
+## Targeted Evaluation
 
 The system focuses on understanding why an answer is strong, incomplete, or incorrect rather than evaluating only the final response.
 
-### Actionable Feedback
+## Actionable Feedback
 
-The final report highlights strengths, knowledge gaps, and areas that the candidate can revise.
+Smart Analysis and the final report highlight strengths, missing concepts, knowledge gaps, and areas that the candidate can revise.
 
-## Project Goals
+---
+
+# Project Goals
 
 The AI Interview Agent aims to build an interview experience that can:
 
 1. Understand a candidate's learning context.
 2. Conduct personalized technical interviews.
 3. Adapt questions based on candidate performance.
-4. Generate meaningful follow-up questions.
-5. Identify technical strengths and knowledge gaps.
-6. Evaluate technical knowledge, communication, and problem-solving.
-7. Provide actionable post-interview feedback.
-8. Make technical interview preparation more interactive and personalized.
+4. Maintain a difficulty parameter throughout the interview.
+5. Generate meaningful follow-up questions.
+6. Identify technical strengths and knowledge gaps.
+7. Evaluate technical knowledge, communication, and problem-solving.
+8. Provide question-level Smart Analysis.
+9. Provide actionable post-interview feedback.
+10. Make technical interview preparation more interactive and personalized.
 
-## Future Scope
+---
+
+# Future Scope
 
 Potential improvements include:
 
-- Voice-based interviews
-- Real-time speech analysis
-- Coding interview support
-- Multi-domain interview tracks
-- Advanced candidate profiling
-- Long-term learning progress tracking
-- Improved difficulty calibration using historical interview data
-- Personalized learning recommendations
+* Voice-based interviews
+* Real-time speech analysis
+* Coding interview support
+* Multi-domain interview tracks
+* Advanced candidate profiling
+* Long-term learning progress tracking
+* Improved difficulty calibration using historical interview data
+* Personalized learning recommendations
 
-## Project Status
+---
 
-The AI Interview Agent is actively being developed as part of the AI Cohort / NorthStar project.
+# Project Status
 
-The current focus is on building a reliable adaptive interview engine, context-aware question generation, response analysis, and comprehensive candidate evaluation.
+The AI Interview Agent is being developed as part of the AI Cohort / NorthStar project.
 
-## Contributors
+The current implementation focuses on:
+
+* Personalized technical interviews
+* Context-aware question generation
+* Adaptive difficulty
+* Intelligent follow-up questions
+* Candidate response analysis
+* FastAPI-based interview integration
+* JavaScript ↔ FastAPI communication
+* Question-level Smart Analysis
+* Performance reporting
+* Actionable candidate feedback
+
+---
+
+# Contributors
 
 Built collaboratively as part of the NorthStar project.
