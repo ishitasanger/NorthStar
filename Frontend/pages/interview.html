@@ -1,345 +1,589 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>AI Interviewer | Live Interview</title>
 
-    <link rel="stylesheet" href="../CSS/interview.css">
+    <link
+        rel="stylesheet"
+        href="../CSS/interview.css"
+    >
+
 </head>
+
 
 <body>
 
-    <!-- Background -->
-    <div class="background">
-        <div class="gradient-orb orb-one"></div>
-        <div class="gradient-orb orb-two"></div>
-        <div class="gradient-orb orb-three"></div>
 
-        <div class="particles">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+    <!-- ================= BACKGROUND ================= -->
+
+    <div class="gradient-orb orb-one"></div>
+    <div class="gradient-orb orb-two"></div>
+    <div class="gradient-orb orb-three"></div>
+
+    <div class="particles">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
     </div>
 
 
-    <!-- APP -->
-    <div class="app-shell">
+    <!-- ================= SIDEBAR ================= -->
 
-        <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
 
-        <aside class="sidebar">
 
-            <div class="brand">
-                <div class="brand-icon">✦</div>
+        <!-- BRAND -->
 
-                <div>
-                    <h2>AI Interviewer</h2>
-                    <span>Interview Intelligence</span>
-                </div>
+        <div class="brand">
+
+            <div class="brand-icon">
+                ✦
             </div>
 
+            <div>
 
-            <nav class="sidebar-nav">
-
-                <a href="../index.html" class="nav-item">
-                    <div class="nav-icon">⌂</div>
-                    <div>
-                        <strong>Dashboard</strong>
-                        <small>Overview & insights</small>
-                    </div>
-                </a>
-
-                <a href="interview.html" class="nav-item active">
-                    <div class="nav-icon">◉</div>
-                    <div>
-                        <strong>Interview Mode</strong>
-                        <small>Live interview</small>
-                    </div>
-                </a>
-                <a href="report.html" class="nav-item">
-    <span>📊</span>
-    <div>
-        <strong>Performance Report</strong>
-        <small>View your results</small>
-    </div>
-</a>
-
-            </nav>
-
-
-            <div class="sidebar-card">
-
-                <div class="eyebrow">FOCUS. THINK. PERFORM.</div>
-
-                <h3>You're doing great!</h3>
-
-                <p>
-                    Take your time and explain your reasoning clearly.
-                </p>
-
-                <div class="mini-progress">
-                    <div></div>
-                </div>
-
-            </div>
-
-
-            <button class="end-interview-btn" id="endInterviewBtn">
-                <span>■</span>
-                End Interview
-            </button>
-
-        </aside>
-
-
-        <!-- ================= MAIN ================= -->
-
-        <main class="main-content">
-
-            <!-- TOP BAR -->
-
-            <header class="topbar">
-
-                <div>
-
-                    <div class="page-label">
-                        <span class="live-dot"></span>
-                        LIVE INTERVIEW
-                    </div>
-
-                    <h1>Technical Interview</h1>
-
-                    <div class="timer">
-                        <span>◷</span>
-                        <strong id="timer">00:02</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="top-actions">
-
-                    <div class="question-progress">
-
-                        <span>
-                            Question <strong id="questionNumber">1</strong>
-                            of <strong id="totalQuestions">10</strong>
-                        </span>
-
-                        <div class="progress-track">
-                            <div
-                                class="progress-fill"
-                                id="questionProgress"
-                                style="width:10%">
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <button class="pause-btn" id="pauseBtn">
-                        ❚❚ Pause Interview
-                    </button>
-
-                </div>
-
-            </header>
-
-
-            <!-- INTERVIEW CARD -->
-
-            <section class="interview-card">
-
-                <!-- Topic -->
-
-                <div class="question-top">
-
-                    <div class="topic-pill">
-                        ✦ Retrieval-Augmented Generation
-                    </div>
-
-                    <button class="difficulty-pill">
-                        Adaptive • Medium
-                    </button>
-
-                </div>
-
-
-                <!-- AI -->
-
-                <div class="ai-label">
-                    <span class="ai-sparkle">✦</span>
-                    AI INTERVIEWER
-                    <span class="status-dot"></span>
-                </div>
-
-
-                <!-- Question -->
-
-                <h2 id="questionText">
-                    Why did you choose RAG instead of fine-tuning the model?
+                <h2>
+                    AI Interviewer
                 </h2>
 
+                <span>
+                    Interview Intelligence
+                </span>
 
-                <p class="question-description" id="questionDescription">
-                    Explain your reasoning and support your answer with a
-                    practical example.
-                </p>
+            </div>
+
+        </div>
 
 
-                <!-- Context -->
+        <!-- NAVIGATION -->
 
-                <div class="context-box">
+        <nav class="sidebar-nav">
 
-                    <div class="context-icon">🧠</div>
 
-                    <div>
+            <a
+                href="../index.html"
+                class="nav-item"
+            >
 
-                        <strong>Context-aware interview</strong>
-
-                        <p>
-                            Your next question will adapt based on the answer
-                            you provide.
-                        </p>
-
-                    </div>
-
+                <div class="nav-icon">
+                    ⌂
                 </div>
-
-
-                <!-- ANSWER -->
-
-                <div class="answer-section">
-
-                    <div class="answer-header">
-
-                        <label for="answerInput">
-                            Your answer
-                        </label>
-
-                        <span id="characterCount">
-                            0 characters
-                        </span>
-
-                    </div>
-
-
-                    <textarea
-                        id="answerInput"
-                        placeholder="Type your answer here... Explain your reasoning, implementation details, and practical examples."
-                    ></textarea>
-
-
-                    <div class="answer-footer">
-
-                        <span>
-                            Ctrl + Enter to submit
-                        </span>
-
-                        <button
-                            class="send-btn"
-                            id="sendAnswerBtn"
-                        >
-                            <span>➤</span>
-                            Send Answer
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- INTERVIEW TIP -->
-
-            <section class="tip-card">
-
-                <div class="tip-icon">💡</div>
 
                 <div>
 
-                    <strong>Interview Tip</strong>
+                    <strong>
+                        Dashboard
+                    </strong>
 
-                    <p id="tipText">
-                        Structure your answer with a clear explanation,
-                        implementation details, and a real-world example.
+                    <small>
+                        Overview & insights
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="interview.html"
+                class="nav-item active"
+            >
+
+                <div class="nav-icon">
+                    ◉
+                </div>
+
+                <div>
+
+                    <strong>
+                        Interview Mode
+                    </strong>
+
+                    <small>
+                        Live interview
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="report.html"
+                class="nav-item"
+            >
+
+                <div class="nav-icon">
+                    ◈
+                </div>
+
+                <div>
+
+                    <strong>
+                        Performance Report
+                    </strong>
+
+                    <small>
+                        View your results
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- SELECT CANDIDATE -->
+
+            <a
+                href="../candidate.html"
+                class="nav-item"
+            >
+
+                <div class="nav-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong>
+                        Select Candidate
+                    </strong>
+
+                    <small>
+                        Choose a candidate
+                    </small>
+
+                </div>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- SIDEBAR CARD -->
+
+        <div class="sidebar-card">
+
+            <div class="eyebrow">
+                FOCUS. THINK. PERFORM.
+            </div>
+
+            <h3>
+                You're doing great!
+            </h3>
+
+            <p>
+                Take your time and explain your reasoning clearly.
+            </p>
+
+            <div class="mini-progress">
+                <div></div>
+            </div>
+
+        </div>
+
+
+        <!-- END INTERVIEW -->
+
+        <button
+            class="end-interview-btn"
+            id="endInterviewBtn"
+        >
+
+            <span>
+                ■
+            </span>
+
+            End Interview
+
+        </button>
+
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+
+        <!-- ================= TOP BAR ================= -->
+
+        <header class="topbar">
+
+
+            <div>
+
+                <div class="page-label">
+
+                    <span class="live-dot"></span>
+
+                    LIVE INTERVIEW
+
+                </div>
+
+
+                <h1>
+                    Technical Interview
+                </h1>
+
+
+                <div class="timer">
+
+                    <span>
+                        ◷
+                    </span>
+
+                    <strong id="timer">
+                        00:00
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="top-actions">
+
+
+                <!-- QUESTION PROGRESS -->
+
+                <div class="question-progress">
+
+                    <span>
+
+                        Question
+
+                        <strong id="questionNumber">
+                            1
+                        </strong>
+
+                        of
+
+                        <strong id="totalQuestions">
+                            10
+                        </strong>
+
+                    </span>
+
+
+                    <div class="progress-track">
+
+                        <div
+                            class="progress-fill"
+                            id="questionProgress"
+                            style="width: 0%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAUSE -->
+
+                <button
+                    class="pause-btn"
+                    id="pauseBtn"
+                >
+
+                    ❚❚ Pause Interview
+
+                </button>
+
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= INTERVIEW CARD ================= -->
+
+        <section class="interview-card">
+
+
+            <!-- TOPIC -->
+
+            <div class="question-top">
+
+
+                <div
+                    class="topic-pill"
+                    id="topicPill"
+                >
+
+                    ✦ Personalized Interview
+
+                </div>
+
+
+                <button
+                    class="difficulty-pill"
+                    id="difficultyPill"
+                >
+
+                    Adaptive • Medium
+
+                </button>
+
+
+            </div>
+
+
+            <!-- AI LABEL -->
+
+            <div class="ai-label">
+
+                <span class="ai-sparkle">
+                    ✦
+                </span>
+
+                AI INTERVIEWER
+
+                <span class="status-dot"></span>
+
+            </div>
+
+
+            <!-- QUESTION -->
+
+            <h2 id="questionText">
+
+                Preparing your first question...
+
+            </h2>
+
+
+            <p
+                class="question-description"
+                id="questionDescription"
+            >
+
+                The AI interviewer is analyzing the candidate profile.
+
+            </p>
+
+
+            <!-- CONTEXT -->
+
+            <div class="context-box">
+
+
+                <div class="context-icon">
+                    🧠
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Context-aware interview
+                    </strong>
+
+                    <p>
+                        Your next question will adapt based on the answer
+                        you provide.
                     </p>
 
                 </div>
 
-            </section>
+
+            </div>
 
 
-            <!-- STRONG ANSWER -->
+            <!-- ================= ANSWER ================= -->
 
-            <section class="strong-answer-card">
+            <div class="answer-section">
 
-                <div class="strong-answer-header">
 
-                    <div class="strong-icon">✓</div>
+                <div class="answer-header">
 
-                    <div>
 
-                        <span>LEARNING MODE</span>
+                    <label for="answerInput">
+                        Your answer
+                    </label>
 
-                        <h3>What a strong answer should include</h3>
 
-                    </div>
+                    <span id="characterCount">
+                        0 characters
+                    </span>
 
-                    <button id="toggleStrongAnswer">
-                        Show
+
+                </div>
+
+
+                <textarea
+                    id="answerInput"
+                    placeholder="Type your answer here... Explain your reasoning, implementation details, and practical examples."
+                ></textarea>
+
+
+                <div class="answer-footer">
+
+
+                    <span>
+                        Ctrl + Enter to submit
+                    </span>
+
+
+                    <button
+                        class="send-btn"
+                        id="sendAnswerBtn"
+                    >
+
+                        <span>
+                            ➤
+                        </span>
+
+                        Send Answer
+
                     </button>
 
-                </div>
-
-
-                <div
-                    class="strong-answer-content"
-                    id="strongAnswerContent"
-                >
-
-                    <div class="answer-point">
-                        <span>✓</span>
-                        Explain why retrieval is useful.
-                    </div>
-
-                    <div class="answer-point">
-                        <span>✓</span>
-                        Mention embeddings and vector similarity.
-                    </div>
-
-                    <div class="answer-point">
-                        <span>✓</span>
-                        Explain how relevant context is retrieved.
-                    </div>
-
-                    <div class="answer-point">
-                        <span>✓</span>
-                        Connect retrieved context to generation.
-                    </div>
 
                 </div>
 
-            </section>
 
-        </main>
+            </div>
 
-    </div>
+
+        </section>
+
+
+        <!-- ================= INTERVIEW TIP ================= -->
+
+        <section class="tip-card">
+
+
+            <div class="tip-icon">
+                💡
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Interview Tip
+                </strong>
+
+
+                <p id="tipText">
+
+                    Structure your answer with a clear explanation,
+                    implementation details, and a real-world example.
+
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= STRONG ANSWER ================= -->
+
+        <section class="strong-answer-card">
+
+
+            <div class="strong-answer-header">
+
+
+                <div class="strong-icon">
+                    ✓
+                </div>
+
+
+                <div>
+
+                    <span>
+                        LEARNING MODE
+                    </span>
+
+                    <h3>
+                        What a strong answer should include
+                    </h3>
+
+                </div>
+
+
+                <button id="toggleStrongAnswer">
+                    Show
+                </button>
+
+
+            </div>
+
+
+            <div
+                class="strong-answer-content"
+                id="strongAnswerContent"
+            >
+
+
+                <div class="answer-point">
+
+                    <span>
+                        ✓
+                    </span>
+
+                    Explain your reasoning clearly.
+
+                </div>
+
+
+                <div class="answer-point">
+
+                    <span>
+                        ✓
+                    </span>
+
+                    Support your answer with relevant technical details.
+
+                </div>
+
+
+                <div class="answer-point">
+
+                    <span>
+                        ✓
+                    </span>
+
+                    Give a practical example when appropriate.
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
 
 
     <script src="../JS/interview.js"></script>
 
 </body>
+
 </html>

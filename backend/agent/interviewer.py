@@ -36,6 +36,10 @@ class Interviewer:
 
         should_continue = self.state_machine.should_continue()
 
+        if not should_continue:
+            self.state_machine.complete_interview()
+
+
         return {
             "evaluation": evaluation,
             "should_continue": should_continue
