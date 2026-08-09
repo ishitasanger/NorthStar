@@ -91,6 +91,7 @@ Adaptive Difficulty / Follow-up
 Next Question
         ↓
 Performance Report
+```
 
 ## Adaptive Interview Approach
 
@@ -112,6 +113,7 @@ Generate Next Question
 Update Interview Context
        ↓
 Repeat
+```
 
 ## Performance Evaluation
 
@@ -221,6 +223,7 @@ Identifies topics where the candidate demonstrates strong understanding as well 
                         ▼
                Performance Report
 
+```
 ## Core Design Principles
 
 ### Personalization
