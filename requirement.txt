@@ -1,1 +1,5 @@
- pip install groq python-dotenv pydantic fastapi uvicorn
+groq
+python-dotenv
+pydantic
+fastapi
+uvicorn
